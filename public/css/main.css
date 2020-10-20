@@ -10,12 +10,12 @@ body {
     color: white;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 } 
 h1 {
     margin: 10px 0;
     font-size: 56px !important;
     color: var(--primary);
-    text-align: center;
 }
 a {
     text-decoration: none;
@@ -25,12 +25,25 @@ a {
 a:hover {
   filter: brightness(130%);
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--bg-1);
+}
+
 ::-webkit-scrollbar-track {
-  background: var(--bg-1) !important;
+  background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--accent);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary)!important;
+  background: var(--primary);
   border-radius: 5px;
   -webkit-transition: color .25s ease-in-out;
   -moz-transition: color .25s ease-in-out;
@@ -39,7 +52,7 @@ a:hover {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark)!important;
+  background: var(--accent);
 }
 .title {
     text-align: center;

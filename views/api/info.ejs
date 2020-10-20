@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="/css/foot.css">
   <link rel="stylesheet" href="/css/waves.css">
   <link rel="stylesheet" href="/css/comps.css">
+  <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="shortcut icon" href="https://github.com/dxy-Seer/dbos/blob/main/public/img/logo.PNG?raw=true" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
   <meta name="description" content="<%= SiteName %> - The discord bot for your server!">
@@ -19,6 +20,7 @@
   <meta property="og:title" content="<%= SiteName %>">
   <meta property="og:description" content="The discord bot for your server!">
   <meta property="og:image" content="https://github.com/dxy-Seer/dbos/blob/main/public/img/logo.PNG?raw=true">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
   <div class="header">
@@ -30,8 +32,11 @@
         <h1>Info</h1>
         <h3>The bot stats and info</h3>
       </div>
-    
-      <div class="center">
+
+    </div>
+    <div class="pageContent">
+      <div class="headingSide"></div>
+      <div class="content">
         <a class="btn_main dbtn" style="margin: 10px;">Owner: <%= owner %></a>
         <br>
         <br>
@@ -39,33 +44,17 @@
         <a class="btn_main dbtn" style="margin: 10px;">ID<br><%= id %></a>
   
         <a class="btn_main dbtn">Domain<br><%= domain %></a>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <a href="/" class="btn_main dbtn" style="margin: 10px;">Home</a>
+          <div class="Buttons">
+            <br>
+              <a href="/">
+                <div class="btn_main accentColor1">
+                  Home
+                </div>
+              </a>
+              <br>
+              <a href="/api/git"><i class="fa fa-github-square"></i></a>
+          </div>
       </div>
-    </div>
-    <br>
-    <br>
-    <div>
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--bg-2)" />
-                <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--bg-1)" />
-            </g>
-        </svg>
-    </div>
-  </div>
-  <div class="wcontent flex">
-    <br>
-    <br>
-        <a href="/api/git"><i class="fa fa-github-square"></i></a>
   </div>
   <div class="footer">
     <div id="button"></div>

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="/css/root.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/foot.css">
-  <link rel="stylesheet" href="/css/waves.css">
+  <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="stylesheet" href="/css/comps.css">
   <meta name="theme-color" content="var(--bg-1)">
   <meta name="description" content="<%= SiteName %> - The discord bot for your server!">
@@ -31,21 +31,11 @@
         <br>
         <img class="alive" src="https://github.com/dxy-Seer/dbos/blob/main/public/img/logo.PNG?raw=true">
         <h1><strong><%= SiteName %></strong></h1>
-        <h3 class="badge dborder bold"><span class="num"><%= ServerCount %></span> Servers</h3>
+        <div class="badge dborder bold"><span class="num"><%= ServerCount %></span> Servers</div>
+        <br>
         <br>
       </div>
       <div class="content">
-        <a href="/s/join">
-          <div class="btn_main accentColor1">
-            Support server
-          </div>
-        </a>
-        <a href="/api/all/info">
-          <div class="btn_main accentColor1">
-              Info/Stats
-          </div>
-        </a>
-        </a>
         <div class="container">
           <a class='btn_main dbtn' href="/inv/bot">
             Invite <%= SiteName %>!
@@ -55,23 +45,29 @@
       <br>
       <br>
     </div>
-    <div>
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
-            </defs>
-            <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="5" fill="var(--bg-2)" />
-                <use xlink:href="#gentle-wave" x="48" y="7" fill="var(--bg-1)" />
-            </g>
-        </svg>
+  <div class="pageContent">
+    <div class="headingSide"></div>
+    <div class="heading">About <%= SiteName %> </div>
+    <div class="content">
+        <%= SiteName %> is an easy to use discord bot that has a flexible prefix and much more to explore!
+        <div class="Buttons">
+          <br>
+            <a href="/s/join">
+              <div class="btn_main accentColor1">
+                Support server
+              </div>
+            </a>
+            <a href="/api/all/info">
+              <div class="btn_main accentColor1">
+                  Info/Stats
+              </div>
+            </a>
+            <br>
+            <a href="/api/git"><i class="fa fa-github-square"></i></a>
+        </div>
     </div>
-  </div>
-  <div class="wcontent flex">
-    <br>
-    <br>
-        <a href="/api/git"><i class="fa fa-github-square"></i></a>
-  </div>
+</div>
+
   <div class="footer">
     <div id="button"></div>
     <div id="container">

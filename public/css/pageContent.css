@@ -1,0 +1,39 @@
+.pageContent {
+    position: relative;
+    margin-bottom: 40px;
+}
+.pageContent .heading {
+    background: var(--bg-1);
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+}
+.pageContent .content {
+    background: var(--bg-1);
+    text-align: center;
+    padding: 30px;
+}
+.pageContent .content .Buttons {
+    background: var(--bg-1);
+    text-align: center;
+    border-top: 2px solid var(--bg-1-light);
+    margin-top: 10px;
+}
+.pageContent .headingSide {
+    /* position: absolute; */
+    display: block;
+    content: '';
+    z-index: -1;
+    left: 0;
+    bottom: 100%;
+    border-top: 2.5em solid transparent;
+    border-left: 100vw solid var(--bg-1);
+}
+.Buttons a i{
+    font-size: 40px;
+    color: var(--dbtn-color);
+    transition: .5s;
+  }
+  .Buttons a i:hover {
+    filter: brightness(120%);
+  }
