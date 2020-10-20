@@ -1,0 +1,22 @@
+.badge {
+    background: radial-gradient(circle,var(--dbtn-color) 0,var(--accent) 100%)!important;
+    margin: 10px;
+    padding: 5px;
+    display: inline-block;
+}
+.badge span.num {
+    background: var(--bg-1) !important;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+.rounded {
+    border-radius: 10px;
+}
+.dborder {
+    border-radius: 3px;
+}
+.bold {
+    font-weight: bold;
+}

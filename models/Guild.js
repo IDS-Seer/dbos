@@ -6,6 +6,10 @@ const Guild = Schema({
     prefix: {
         type: String,
         default: config.bot.prefix
+    },
+    blacklisted: {
+        type: Boolean,
+        default: false
     }
 });
 

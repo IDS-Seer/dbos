@@ -86,10 +86,5 @@ bot.on("message", async message => {
     }
 })
 
-function botUsers(){
-    return bot.users.cache.size;
-}
-function botServers(){
-    return bot.guilds.cache.size;
-}
+
 bot.login(config.bot.token);

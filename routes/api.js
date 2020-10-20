@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 router.get("/api/domain", function(request, response) {
     let domain = Config.siteUrl;
-    let port = Config.port;
+    let port = Config.port
     response.status(200).json({
       url: domain,
       port: port
