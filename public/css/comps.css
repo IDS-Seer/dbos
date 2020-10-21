@@ -5,11 +5,12 @@
     display: inline-block;
 }
 .badge span.num {
-    background: var(--bg-1) !important;
+    border-right: 1.4px solid var(--bg-1) !important;
+    /* background: var(--bg-1); */
     display: inline-block;
-    width: 20px;
+    min-width: 20px;
+    min-height: 20px;
    /* height: 20px; */
-    border-radius: 50%;
 }
 .rounded {
     border-radius: 10px;
