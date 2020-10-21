@@ -10,9 +10,13 @@ const UserMod = require('../models/User')
 
 router.get("/", function(request, response) {
   let ServerNUM = bot.guilds.cache.size;
+  let ChannelNUM = bot.channels.cache.size;
+  let UserNUM = bot.users.cache.size;
   response.render("../views/index.ejs", {
     SiteName: config.siteName,
-    ServerCount: ServerNUM
+    ServerCount: ServerNUM,
+    ChannelCount: ChannelNUM,
+    UserCount: UserNUM
   });
 });
 
