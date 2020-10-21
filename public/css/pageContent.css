@@ -37,3 +37,77 @@
   .Buttons a i:hover {
     filter: brightness(120%);
   }
+  /* Waves */
+.waves {
+    background: none;
+    position: absolute;
+}
+.waves.bottom {
+    width: 100%;
+    height: 5vh;
+    margin-top: -20px;
+    min-height: 50px;
+    max-height: 75px;
+}
+.waves.top {
+    width: 100%;
+    height: 5vh;
+    margin-top: -10px;
+    min-height: 50px;
+    max-height: 75px;
+}
+svg {
+    overflow: hidden;
+}
+img, svg {
+    vertical-align: middle;
+}
+#wave1b {
+    fill: var(--bg-1) !important;
+    fill-opacity: .7;
+}
+#wave2b {
+    fill: var(--bg-1) !important;
+    fill-opacity: .5;
+}
+#wave3b {
+    fill: var(--bg-1) !important;
+    fill-opacity: .3;
+}
+#wave4b {
+    fill: var(--bg-1) !important;
+}
+#wave1t {
+    fill: var(--bg-2) !important;
+    fill-opacity: .7;
+}
+#wave2t {
+    fill: var(--bg-2) !important;
+    fill-opacity: .5;
+}
+#wave3t {
+    fill: var(--bg-2) !important;
+    fill-opacity: .3;
+}
+#wave4t {
+    fill: var(--bg-2) !important;
+}
+.parallax > use:nth-child(2) {
+    -webkit-animation-delay: -3s;
+    animation-delay: -3s;
+    -webkit-animation-duration: 10s;
+    animation-duration: 10s;
+}
+.parallax > use {
+    -webkit-animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+    animation: move-forever 25s cubic-bezier(.55,.5,.45,.5) infinite;
+}
+
+  @keyframes move-forever {
+    0% {
+      transform: translate3d(-90px, 0, 0);
+    }
+    100% {
+      transform: translate3d(85px, 0, 0);
+    }
+  }

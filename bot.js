@@ -48,10 +48,10 @@ bot.on('ready', async () => {
                 })
         })
     }
-    setTimeout(StartShards, 3000);
+    setTimeout(StartShards, 1000);
     setTimeout(()=>{
         bot.user.setActivity(botActivity);
-    }, 4000);
+    }, 2000);
 })
 bot.on("message", async message => {
     var messageAuthor = message.member.user.tag;
