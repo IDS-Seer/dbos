@@ -6,6 +6,7 @@ var botStatus = config.bot.status.mode;
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 const GuildModel = require('./models/Guild')
+const UserModel = require('./models/User')
 const { connect } = require('mongoose');
 var botActivity = config.bot.status.activity;
 bot.on('ready', async () => {
@@ -66,6 +67,13 @@ bot.on("message", async message => {
         const oprix = config.bot.prefix;
     } else {
         var oprix = req.prefix;
+    }
+    const userListed = await UserModel.findOne({ id: message.member.id })
+    if(!userListed){
+        const init = new UserModel({ id: message.member.id })
+        await init.save();
+
+        const oprix = config.bot.prefix;
     }
     if(!message.content.startsWith(oprix)) return;
     let args = message.content.slice(oprix.length).trim().split(/ +/g);
