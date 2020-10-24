@@ -70,6 +70,7 @@ router.get('/api/all/info', async function(req, res){
 
   res.render("../views/api/info.ejs", {
     SiteName: Config.siteName,
+    icon: Config.iconUrl,
     invite: authURL,
     domain: domain,
     port: port,
