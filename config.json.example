@@ -10,6 +10,12 @@
 			"mode": "dnd",
             "activity": "dbt.help"
 		},
+		"moderation": {
+            "blackListing": {
+                "enabled": true,
+                "errorMessage": "Your server was blacklisted because it violated our terms of service!"
+            }
+        },
 		"ver": "0.0.0"
 	},
 	"server": {
