@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) => {
             .setTitle('**Help**')
             .setURL(config.siteUrl)
             .setDescription('The simple yet powerful open source discord bot!')
-            .setThumbnail('https://github.com/dxy-Seer/dbos/blob/main/public/img/logo.PNG?raw=true')
+            .setThumbnail(config.iconUrl)
             .addFields(
                 { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server`, inline: true },
                 { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}clear`, inline: true },

@@ -6,7 +6,7 @@ module.exports.run = async (bot, message, args) => {
     if(!message.guild.id == config.bot.moderation.server.id) return;
     if(!message.member.roles.cache.has(config.bot.moderation.server.adminRoleId)) return;
     const Target = args[0];
-    if(Target === config.bot.moderation.server.id) return message.reply('I can\'t blacklist the moderation server!');
+    if(Target === config.bot.moderation.server.id) return message.reply('I can\'t whitelist the moderation server!');
 
     if(!Target) return message.reply('Please enter in a valid server id');
 
