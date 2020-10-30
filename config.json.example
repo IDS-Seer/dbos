@@ -27,6 +27,6 @@
 		  "mongodb": "MONGODB"
 	  },
 	  "siteName": "DBOS",
-	  "iconUrl": "https://github.com/dxy-Seer/dbos/blob/main/public/img/logo.PNG?raw=true",
+	  "iconUrl": "https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true",
       "owner": "Seer#6054"
 }
