@@ -72,7 +72,17 @@ bot.on("message", async message => {
     } else {
         var oprix = req.prefix;
     }
-    if(req.blacklisted == undefined){
+
+    const userListed = await UserModel.findOne({ id: message.member.id })
+    if(!userListed){
+        const init = new UserModel({ id: message.member.id })
+        await init.save();
+
+        const oprix = config.bot.prefix;
+    }
+    if(!message.content.startsWith(oprix)) return;
+
+    if(req.blacklisted == undefined || req.blacklisted == null){
         const blackListAdd = new GuildModel({ id: message.guild.id, blacklisted: false })
         await blackListAdd.save();
     } else {
@@ -95,7 +105,6 @@ bot.on("message", async message => {
                 blackListEmbed.setColor(colors.error);
                 blackListEmbed.setDescription('Your server was put on a BlackList by the bot ' + system.teamName + '!');
                 blackListEmbed.setTimestamp();
-                blackListEmbed.setAuthor('SYSTEM');
                 blackListEmbed.addField('Message', cStatus, false)
 
                 return message.channel.send(blackListEmbed);
@@ -104,14 +113,6 @@ bot.on("message", async message => {
             return console.log('ERR -> BLACKLISTED SERVER USED A COMMAND, COMMAND STATUS: ' + cStatus);
         }
     }
-    const userListed = await UserModel.findOne({ id: message.member.id })
-    if(!userListed){
-        const init = new UserModel({ id: message.member.id })
-        await init.save();
-
-        const oprix = config.bot.prefix;
-    }
-    if(!message.content.startsWith(oprix)) return;
     let args = message.content.slice(oprix.length).trim().split(/ +/g);
     let cmd;
     cmd = args.shift().toLocaleLowerCase();

@@ -10,10 +10,14 @@
 			"mode": "dnd",
             "activity": "dbt.help"
 		},
-		"moderation": {
+        "moderation": {
             "blackListing": {
                 "enabled": true,
                 "errorMessage": "Your server was blacklisted because it violated our terms of service!"
+            },
+            "server": {
+                "id": "759754457520275461",
+                "adminRoleId": "771439011293822996"
             }
         },
 		"ver": "0.0.0"
