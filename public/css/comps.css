@@ -21,3 +21,21 @@
 .bold {
     font-weight: bold;
 }
+
+.smileOuter {
+    position: relative;
+    width: 45px !important;
+    height: 40px !important;
+}
+.smile {
+    position: absolute;
+    border-radius: 50%;
+    background-size: cover;
+    width: 45px !important;
+    height: 40px !important;
+    padding-bottom: 5px;
+    background-image: url('https://raw.githubusercontent.com/wezacon/dbos/main/public/svg/f6949da2-781d-4fd5-81e6-smile.svg');
+}
+.smile.blue {
+    background-color: rgb(151, 213, 239);
+}
