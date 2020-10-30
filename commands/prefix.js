@@ -9,9 +9,9 @@ module.exports.run = async (bot, message, args) => {
         await doc.save();
     }
     if(req.prefix == 'null'){
-        message.reply(`Current prefix: \`${config.bot.prefix}\``);
+        message.channel.send(`Current prefix: \`${config.bot.prefix}\``);
     } else {
-        message.reply(`Current prefix: \`${req.prefix}\``);  
+        message.channel.send(`Current prefix: \`${req.prefix}\``);  
     }
     
 }
