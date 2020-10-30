@@ -12,14 +12,19 @@ app.use(Cookies.express());
 app.use(cookieParser());
 if(config.server.invite == ''){
   console.log('ERROR -> You need to input a server invite code, example: TJY6Xyg\nStopping process.');
+  process.exit(1);
 } else if(config.siteUrl == ''){
   console.log('ERROR -> You need to input a site url, example: https://localhost\nStopping process.');
+  process.exit(1);
 } else if(config.bot.id == ''){
   console.log('ERROR -> You need to input a bot id, example: 668843307329126410\nStopping process.');
+  process.exit(1);
 } else if(config.bot.prefix == ''){
   console.log('ERROR -> You need to input a prefix, example: !\nStopping process.');
+  process.exit(1);
 } else if(config.bot.token == ''){
   console.log('ERROR -> You need to input a bot token, example: NzUzMjc0MTU1MjgxMTU0MTY4.X1jzOQ.RwEgbwp5a_2svPcUijU6wrAY9Dg\nStopping process.');
+  process.exit(1);
 } else {
   const discordBot = require("./bot");
   setInterval(
