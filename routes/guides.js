@@ -6,6 +6,7 @@ const bot = new Discord.Client();
 const config = require('../config.json');
 const app = express();
 app.set('view engine', 'ejs');
+const Levels = require('discord-xp');
 const UserMod = require('../models/User')
 
 router.get("/", function(request, response) {
@@ -29,6 +30,28 @@ router.get("/easter", function(request, response){
     SiteName: config.siteName
   });
 });
+// router.get("/:id/leaderboard", async (req, res) => {
+//   try {
+//     const rawLeaderBoard = await Levels.fetchLeaderboard(req.params.id, 10);
+//     if(rawLeaderBoard.length < 1) return message.reply('Nobody\'s on the leaderboard yet...');
+
+//     const leaderboard = Levels.computeLeaderboard(bot, rawLeaderBoard);
+//     const lb = leaderboard.map(e => 
+//       `**${e.position}. ${bot.users.fetch(e.userID).tag}\nLevel: ${e.level}\nXP: ${e.xp.toLocaleString()}**`      
+//     );
+//     const send = lb.join("<br>");
+//     res.render("../views/dashboard/leaderboard.ejs", {
+//       icon: config.iconUrl,
+//       SiteName: config.siteName,
+//       leaderboard: send
+//     })
+//   } catch (error) {
+//     res.render("../views/errors/404.ejs",{
+//       icon: config.iconUrl,
+//       SiteName: config.siteName 
+//     });
+//   }
+// });
 // if 404
 router.get("*", function(request, response) {
   response.render("../views/errors/404.ejs", {

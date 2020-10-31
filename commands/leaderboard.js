@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) => {
     const embed = new Discord.MessageEmbed()
         .setColor(c.gold)
         .setTitle("**LeaderBoard**")
-        .setDescription(lb.join("\n\n"))
+        .setDescription(lb.join("\n"))
     message.channel.send(embed)
 }
 
