@@ -132,7 +132,13 @@ bot.on("message", async message => {
     }
 })
 
-bot.on("guildCreate", guild => {
+bot.on("guildCreate", async guild => {
+    const req = await GuildModel.findOne({ id: guild })
+    if(!req){
+        const init = new GuildModel({ id: guild, prefix: config.bot.prefix })
+        await init.save();
+    }
+
     const log = config.bot.moderation.entryLogging;
     var serverid = guild.id;
 
