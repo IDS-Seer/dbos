@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) => {
             helpEmbed.setDescription('The simple yet powerful open source discord bot!')
             helpEmbed.setThumbnail(config.iconUrl)
             helpEmbed.addFields(
-                { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server`, inline: true },
+                { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server\n${prefix}rank\n${prefix}leaderboard`, inline: true },
                 { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}clear`, inline: true },
             )
             

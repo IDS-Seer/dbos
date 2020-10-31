@@ -10,7 +10,7 @@ bot.aliases = new Discord.Collection();
 const GuildModel = require('./models/Guild');
 const UserModel = require('./models/User');
 const { connect } = require('mongoose');
-const { SERVFAIL } = require('dns');
+const Levels = require('discord-xp');
 var botActivity = config.bot.status.activity;
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
@@ -131,6 +131,20 @@ bot.on("message", async message => {
         return;
     }
 })
+
+bot.on("message", async message => {
+    Levels.setURL(config.db.mongodb);
+    if(!message.guild) return;
+    if(message.author.bot) return;
+
+    const randomXp = Math.floor(Math.random() * 9) + 1;
+    const hasLveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
+
+    if(hasLveledUp){
+        const user = await Levels.fetch(message.author.id, message.guild.id);
+        message.channel.send(`You have leveled up to ${user.level}! Keep it going!`);
+    }
+});
 
 bot.on("guildCreate", async guild => {
     const req = await GuildModel.findOne({ id: guild })
