@@ -2,6 +2,8 @@ const Discord = require("discord.js");
 const Levels = require('discord-xp');
 const c = require("../colors.json");
 const Canvas = require("canvas");
+const config = require("../config.json");
+const UserModel = require('../models/User');
 
 module.exports.run = async (bot, message, args) => {
     const user = await Levels.fetch(message.author.id, message.guild.id);
@@ -30,7 +32,11 @@ module.exports.run = async (bot, message, args) => {
         const user = await Levels.fetch(message.author.id, message.guild.id);
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
-
+        const UserDB = await UserModel.findOne({ id: message.member.id })
+        if(!UserDB){
+            const init = new UserModel({ id: message.member.id })
+            await init.save();
+        }
     
         ctx.strokeStyle = '#74037b';
         ctx.strokeRect(0, 0, canvas.width, canvas.height);
@@ -49,7 +55,11 @@ module.exports.run = async (bot, message, args) => {
                 ctx.font = '28px sans-serif';
                 ctx.fillStyle = '#ffffff';
                 ctx.fillText('XP: ' + user.xp, canvas.width / 2.5, canvas.height / 1.4);
-            
+        if(UserDB.admin == true) {
+            ctx.font = '20px sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
+        }   
 
         ctx.beginPath();
         ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
