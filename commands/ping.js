@@ -1,7 +1,6 @@
 const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
     try {
-        thisshould
         const m = await message.channel.send("ping?");
         m.edit(`Pong! ${m.createdTimestamp - message.createdTimestamp}ms`); 
     } catch (error) {
