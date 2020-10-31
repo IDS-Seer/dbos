@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
-
-    const amount = args.join(" ");
+  try {
+        const amount = args.join(" ");
 
      if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply('You don\'t have the following permissions: `MANAGE_MESSAGES`.');
      if(isNaN(args[0])) return message.reply('Please specify a number of messages between: 2\ - 100.');
@@ -11,7 +11,11 @@ module.exports.run = async (bot, message, args) => {
        .then(messages => message.reply(`*Successfully deleted*  __**${amount}**__  *messages.*`))
        .catch(() => message.reply('Something went wrong while deleting the messages!'));
 
-     }
+  } catch (error) {
+    message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
+  }
+
+}
 
 module.exports.help = {
     name: "clear",

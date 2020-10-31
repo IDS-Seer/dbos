@@ -6,6 +6,7 @@ const config = require("../config.json");
 const UserModel = require('../models/User');
 
 module.exports.run = async (bot, message, args) => {
+
     const user = await Levels.fetch(message.author.id, message.guild.id);
 
     // const embed = new Discord.MessageEmbed()
@@ -59,7 +60,7 @@ module.exports.run = async (bot, message, args) => {
             // This uses the canvas dimensions to stretch the image onto the entire canvas
             ctx.drawImage(admin, 200, 190, 50, 50);
             ctx.font = '23px sans-serif';
-            ctx.fillStyle = '#ffffff';
+            ctx.fillStyle = '#49a1ff';
             ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
         }   
 

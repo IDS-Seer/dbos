@@ -1,9 +1,8 @@
 const Discord = require("discord.js");
 const config = require('../config.json');
 module.exports.run = async (bot, message, args) => {
-
- 
-         if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send('You do not have permission to use this command!')
+    try {
+        if(!message.member.hasPermission("BAN_MEMBERS")) return message.channel.send('You do not have permission to use this command!')
          if(!message.guild.me.hasPermission("BAN_MEMBERS")) return message.channel.send(`Something went wrong! ${config.siteName} doesn't have the right permissions to execute this command!`)
 
          const member = message.mentions.members.first() || message.guild.members.cache.get(args[0]);
@@ -26,7 +25,11 @@ module.exports.run = async (bot, message, args) => {
 
         return message.channel.send(`${member} was successfully banned!`);
 
-   }
+    } catch (error) {
+        message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
+    }
+ 
+}
 
 
 

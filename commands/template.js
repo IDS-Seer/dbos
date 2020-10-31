@@ -1,8 +1,13 @@
 const Discord = require("discord.js");
 module.exports.run = async (bot, message, args) => {
-    message.reply('This is a template command!')
+    try {
+        message.reply('This is a template command!')
+           // Take note, you can make a command by putting the outcome here
+    } catch (error) {
+        message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
+    }
 
-    // Take note, you can make a command by putting the outcome here
+ 
 }
 
 // Put the command args here (What calls it)
