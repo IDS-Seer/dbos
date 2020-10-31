@@ -212,14 +212,14 @@ bot.on("message", async message => {
 });
 
 bot.on("guildCreate", async guild => {
-    const req = await GuildModel.findOne({ id: guild })
+    var serverid = guild.id;
+    const req = await GuildModel.findOne({ id: serverid })
     if(!req){
-        const init = new GuildModel({ id: guild, prefix: config.bot.prefix })
+        const init = new GuildModel({ id: serverid, prefix: config.bot.prefix })
         await init.save();
     }
 
     const log = config.bot.moderation.entryLogging;
-    var serverid = guild.id;
 
     var serverName = guild.name;
     var serverIcon = guild.iconURL({ format: 'webp', dynamic: true });
