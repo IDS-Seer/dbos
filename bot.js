@@ -61,10 +61,10 @@ bot.on('ready', async () => {
     }, 2000);
 })
 bot.on("message", async message => {
-    var messageAuthor = message.member.user.tag;
-    if(config.bot.messageLogging == true){console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content)}
     if(message.channel.type === "dm") return;
     if(message.author.bot) return;
+    var messageAuthor = message.member.user.tag;
+    if(config.bot.messageLogging == true){console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content)}
     const req = await GuildModel.findOne({ id: message.guild.id })
     if(!req){
         const init = new GuildModel({ id: message.guild.id })
