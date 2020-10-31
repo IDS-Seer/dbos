@@ -15,6 +15,20 @@ Then fill in these values:
 			"mode": "dnd",
             "activity": "dbt.help"
 		},
+        "moderation": {
+            "blackListing": {
+                "enabled": true,
+                "errorMessage": "Your server was blacklisted because it violated our terms of service!"
+            },
+            "server": {
+                "id": "759754457520275461",
+                "adminRoleId": "771439011293822996"
+            },
+            "entryLogging": {
+                "enabled": true,
+                "channelLogId": "772014030822572052"
+            }
+        },
 		"ver": "0.0.0"
 	},
 	"server": {
@@ -26,9 +40,19 @@ Then fill in these values:
 		  "mongodb": "MONGODB"
 	  },
 	  "siteName": "DBOS",
+	  "iconUrl": "https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true",
       "owner": "Seer#6054"
 }
 ```
 ### Console explainations:
 ML -> Message Log - Enabled with `"messageLogging": true`
 CL -> Command Log - Enabled with `"commandLogging": true`
+
+**DISCLAIMER:** The following will **not** be displayed on the help command.
+
+(prefix) = custom bot prefix
+[ServerID] = parameter
+```
+- (prefix)whitelist [ServerID]
+- (prefix)blacklistlist [ServerID]
+``` 

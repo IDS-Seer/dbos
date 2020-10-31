@@ -18,6 +18,10 @@
             "server": {
                 "id": "759754457520275461",
                 "adminRoleId": "771439011293822996"
+            },
+            "entryLogging": {
+                "enabled": true,
+                "channelLogId": "772014030822572052"
             }
         },
 		"ver": "0.0.0"

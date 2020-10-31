@@ -10,6 +10,7 @@ bot.aliases = new Discord.Collection();
 const GuildModel = require('./models/Guild');
 const UserModel = require('./models/User');
 const { connect } = require('mongoose');
+const { SERVFAIL } = require('dns');
 var botActivity = config.bot.status.activity;
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
@@ -131,5 +132,49 @@ bot.on("message", async message => {
     }
 })
 
+bot.on("guildCreate", guild => {
+    const log = config.bot.moderation.entryLogging;
+    var serverid = guild.id;
 
+    var serverName = guild.name;
+    var serverIcon = guild.iconURL({ format: 'webp', dynamic: true });
+    var userAmount = guild.memberCount;
+
+    const createEmbed = new Discord.MessageEmbed()
+    .setTitle('**New server added**')
+    .setColor(colors.info)
+    .setDescription(config.siteName + " has been added to a new server!")
+    .setTimestamp()
+    .setThumbnail(serverIcon)
+    .addFields(
+        {name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false}
+    )
+    .setFooter('© Wezacon.com')
+    if(log.enabled == true){
+        bot.channels.cache.get(log.channelLogId).send(createEmbed);
+    }
+});
+
+bot.on("guildDelete", guild => {
+    const log = config.bot.moderation.entryLogging;
+    var serverid = guild.id;
+
+    var serverName = guild.name;
+    var serverIcon = guild.iconURL({ format: 'webp', dynamic: true });
+    var userAmount = guild.memberCount;
+
+    const deleteEmbed = new Discord.MessageEmbed()
+    .setTitle('**Removed from server**')
+    .setColor(colors.danger)
+    .setDescription(config.siteName + " has been removed from a server.")
+    .setTimestamp()
+    .setThumbnail(serverIcon)
+    .addFields(
+        {name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false}
+    )
+    .setFooter('© Wezacon.com')
+    if(log.enabled == true){
+        bot.channels.cache.get(log.channelLogId).send(deleteEmbed);
+    }
+});
 bot.login(config.bot.token);

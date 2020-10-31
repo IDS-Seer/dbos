@@ -14,18 +14,19 @@ module.exports.run = async (bot, message, args) => {
     } else {
         var prefix = req.prefix;
     }
-     const helpEmbed = new Discord.MessageEmbed()
-            .setColor(colors.info)
-            .setTitle('**Help**')
-            .setURL(config.siteUrl)
-            .setDescription('The simple yet powerful open source discord bot!')
-            .setThumbnail(config.iconUrl)
-            .addFields(
+     const helpEmbed = new Discord.MessageEmbed();
+            helpEmbed.setColor(colors.info)
+            helpEmbed.setTitle('**Help**')
+            helpEmbed.setURL(config.siteUrl)
+            helpEmbed.setDescription('The simple yet powerful open source discord bot!')
+            helpEmbed.setThumbnail(config.iconUrl)
+            helpEmbed.addFields(
                 { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server`, inline: true },
                 { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}clear`, inline: true },
             )
-            .setTimestamp()
-            .setFooter('© Wezacon.com', 'https://github.com/wezacon/dbos/blob/main/public/img/Wezacon-icon.png?raw=true');
+            
+            helpEmbed.setTimestamp()
+            helpEmbed.setFooter('© Wezacon.com', 'https://github.com/wezacon/dbos/blob/main/public/img/Wezacon-icon.png?raw=true');
  
     message.channel.send(helpEmbed);
 }
