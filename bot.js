@@ -114,6 +114,7 @@ bot.on("message", async message => {
 
             return console.log('ERR -> BLACKLISTED SERVER USED A COMMAND, COMMAND STATUS: ' + cStatus);
         }
+        return;
     }
     let args = message.content.slice(oprix.length).trim().split(/ +/g);
     let cmd;
@@ -134,6 +135,13 @@ bot.on("message", async message => {
 })
 
 bot.on("message", async message => {
+    const req = await GuildModel.findOne({ id: message.guild.id })
+    if(req.blacklisted == undefined || req.blacklisted == null){
+        const blackListAdd = new GuildModel({ id: message.guild.id, blacklisted: false })
+        await blackListAdd.save();
+    } 
+    if(req.blacklisted == true) return;
+
     Levels.setURL(config.db.mongodb);
     if(!message.guild) return;
     if(message.author.bot) return;
