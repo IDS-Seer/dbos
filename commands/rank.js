@@ -6,11 +6,11 @@ const Canvas = require("canvas");
 module.exports.run = async (bot, message, args) => {
     const user = await Levels.fetch(message.author.id, message.guild.id);
 
-    const embed = new Discord.MessageEmbed()
-        .setColor(c.gold)
-        .setAuthor(`${message.member.user.tag}`, message.author.displayAvatarURL())
-        .setDescription(`You are currently level **${user.level}**!`)
-    message.channel.send(embed)
+    // const embed = new Discord.MessageEmbed()
+    //     .setColor(c.gold)
+    //     .setAuthor(`${message.member.user.tag}`, message.author.displayAvatarURL())
+    //     .setDescription(`You are currently level **${user.level}**!`)
+    // message.channel.send(embed)
     const applyText = (canvas, text) => {
         const ctx = canvas.getContext('2d');
     
