@@ -37,10 +37,9 @@ module.exports.run = async (bot, message, args) => {
             const init = new UserModel({ id: message.member.id })
             await init.save();
         }
-    
-        ctx.strokeStyle = '#74037b';
-        ctx.strokeRect(0, 0, canvas.width, canvas.height);
-    
+
+    	const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
+	    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         // Add an exclamation point here and below
         ctx.font = applyText(canvas, `${message.member.user.tag}`);
         ctx.fillStyle = '#ffffff';
@@ -56,7 +55,10 @@ module.exports.run = async (bot, message, args) => {
                 ctx.fillStyle = '#ffffff';
                 ctx.fillText('XP: ' + user.xp, canvas.width / 2.5, canvas.height / 1.4);
         if(UserDB.admin == true) {
-            ctx.font = '20px sans-serif';
+            const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
+            // This uses the canvas dimensions to stretch the image onto the entire canvas
+            ctx.drawImage(admin, 200, 190, 50, 50);
+            ctx.font = '23px sans-serif';
             ctx.fillStyle = '#ffffff';
             ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
         }   
