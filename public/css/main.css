@@ -80,7 +80,7 @@ body::-webkit-scrollbar-thumb {
     transition: all .25s ease-in-out;
 }
 .title img.error{
-    background-color: #ff0000;
+    background-color: var(--error);
     -webkit-box-shadow: inset 0px 0px 6px -1px hsla(0, 80%, 40%, 1);
     -moz-box-shadow: inset 0px 0px 6px -1px hsla(0, 80%, 40%, 1);
     -o-box-shadow: inset 0px 0px 6px -1px hsla(0, 80%, 40%, 1);

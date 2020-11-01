@@ -16,10 +16,10 @@ module.exports.run = async (bot, message, args) => {
         }
         if(req.bio == 'null'){
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id }, { bio: bio }, {new: true})
-            message.reply(`Bio updated!\n` + config.siteUrl + '/' + message.member.id);
+            message.reply(`Bio updated!\n` + config.siteUrl + '/user/' + message.member.id);
         } else {
             const doc = await UserModel.findOneAndUpdate({ id: message.member.id }, { bio: bio }, {new: true});
-            message.reply(`Bio updated!\n` + config.siteUrl + '/' + message.member.id);
+            message.reply(`Bio updated!\n` + config.siteUrl + '/user/' + message.member.id);
         } 
     } catch (error) {
         message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
