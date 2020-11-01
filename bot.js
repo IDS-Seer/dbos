@@ -79,7 +79,7 @@ bot.on("message", async message => {
         var oprix = req.prefix;
     }
 
-    const userListed = await UserModel.findOne({ id: message.member.id})
+    const userListed = await UserModel.findOne({ id: message.member.id })
     if(!userListed){
         const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage })
         await init.save();
@@ -141,14 +141,14 @@ bot.on("message", async message => {
 })
 
 bot.on("message", async message => {
+    if(!message.guild) return;
+    if(message.author.bot) return;
     const guildDB = await GuildModel.findOne({ id: message.guild.id })
     if(!guildDB){
         const init = new GuildModel({ id: message.guild.id })
         await init.save();
     }
     Levels.setURL(config.db.mongodb);
-    if(!message.guild) return;
-    if(message.author.bot) return;
     if(guildDB.blacklisted == true) return;
     const randomXp = Math.floor(Math.random() * 9) + 1;
     const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);

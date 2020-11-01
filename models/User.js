@@ -14,6 +14,10 @@ const User = Schema({
     profileImage: {
         type: String,
         default: config.iconUrl
+    },
+    bio: {
+        type: String,
+        default: "This user does not have a bio yet"
     }
 });
 
