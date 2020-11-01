@@ -65,3 +65,8 @@
     -o-box-shadow: inset 0px 0px 3px 0px var(--primary-dark) !important;
     box-shadow: inset 0px 0px 3px 0px var(--primary-dark) !important;
 }
+.developerBadge {
+    height: 27px !important;
+    width: 33px !important;
+    background: none !important;
+}
