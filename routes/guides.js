@@ -43,10 +43,8 @@ router.get("/easter", function(request, response){
 router.get("/users", async (req, res, next) => {
   try {
     const users = await UserModel.find({}).sort({$natural:-1});
-    const rusers = await UserModel.aggregate([ { $sample: { size: 10 } } ]);
     
     let data = {
-      rusers: rusers,
       users: users,
       icon: config.iconUrl,
       SiteName: config.siteName

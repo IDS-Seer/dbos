@@ -280,7 +280,7 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
 }
 .btn_main.dbtn {
-    border-radius: 3px !important;
+    border-radius: 3px;
     transition: .5s;
     border-color: var(--dbtn-color);
     background: var(--dbtn-color) !important;

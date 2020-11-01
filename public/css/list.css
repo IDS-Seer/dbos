@@ -46,4 +46,5 @@
 .card a {
     margin-bottom: 10px;
     width: 75%;
+    border-radius: 25px !important;
 }
