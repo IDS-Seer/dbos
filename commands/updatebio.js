@@ -7,8 +7,12 @@ module.exports.run = async (bot, message, args) => {
         if(!args.length) return message.reply('You didn\'t provide a bio.');
         if(args.length > 500) return message.reply('Error, You can\'t have more than `500` characters.');
 
-        const bio = args.join(" ");
-
+        const bio1 = args.join(" ");
+        function nl2br(str){
+            return str.replace(/(?:\r\n|\r|\n)/g, '<br>');
+        }
+        const bio2 = bio1.replace(/<[^>]+>/g, '');
+        const bio = nl2br(bio2);
         const req = await UserModel.findOne({ id: message.member.id })
         if(!req){
             const doc = new UserModel({ id: message.member.id, bio: bio })

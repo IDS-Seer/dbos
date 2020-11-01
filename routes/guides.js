@@ -9,12 +9,14 @@ app.set('view engine', 'ejs');
 const Levels = require('discord-xp');
 const UserModel = require('../models/User')
 
-router.get("/", function(request, response) {
+router.get("/", async function(request, response) {
   try {
     let ServerNUM = bot.guilds.cache.size;
+    let VERIFIED_BOT = (await bot.fetchFlags()).has("VERIFIED_BOT")
     response.render("../views/index.ejs", {
       SiteName: config.siteName,
       icon: config.iconUrl,
+      verified: VERIFIED_BOT,
       ServerCount: ServerNUM
     });
   } catch (error) {
