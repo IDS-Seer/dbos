@@ -60,7 +60,7 @@ router.get("/user/:id", async (req, res, next) => {
     const userListed = await UserModel.findOne({ id: req.params.id });
     try {
       if(userListed){
-          let discord_verified = (await user.fetchFlags()).has("VERIFIED_DEVELOPER")
+          let VERIFIED_DEVELOPER = (await user.fetchFlags()).has("VERIFIED_DEVELOPER")
             
           if(userListed.bio == "" || userListed.bio == undefined || userListed.bio == null){
             var userBio = "This user does not have a bio yet.";
@@ -71,7 +71,7 @@ router.get("/user/:id", async (req, res, next) => {
             let data = {
                 user: req.user,
                 userProfile: user,
-                developer: discord_verified,
+                developer: VERIFIED_DEVELOPER ,
                 isProfile: true,
                 avatar: user.displayAvatarURL(),
                 username: user.tag,
