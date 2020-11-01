@@ -12,6 +12,7 @@ const GuildModel = require('./models/Guild');
 const UserModel = require('./models/User');
 const { connect } = require('mongoose');
 const Levels = require('discord-xp');
+const fetch = require("node-fetch");
 var botActivity = config.bot.status.activity;
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
@@ -59,11 +60,14 @@ bot.on('ready', async () => {
     setTimeout(()=>{
         bot.user.setActivity(botActivity);
     }, 2000);
+
+
 })
 bot.on("message", async message => {
     if(message.channel.type === "dm") return;
     if(message.author.bot) return;
     var messageAuthor = message.member.user.tag;
+    var AuthorImage = message.author.avatarURL();
     if(config.bot.messageLogging == true){console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content)}
     const req = await GuildModel.findOne({ id: message.guild.id })
     if(!req){
@@ -75,12 +79,15 @@ bot.on("message", async message => {
         var oprix = req.prefix;
     }
 
-    const userListed = await UserModel.findOne({ id: message.member.id })
+    const userListed = await UserModel.findOne({ id: message.member.id})
     if(!userListed){
-        const init = new UserModel({ id: message.member.id })
+        const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage })
         await init.save();
-
-        const oprix = config.bot.prefix;
+    } else {
+        const init = await UserModel.findOneAndUpdate({ id: message.member.id }, { username: messageAuthor, profileImage: AuthorImage }, {new: true});
+        if(config.danger.debug == true){
+            console.log('[DEBUG] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
+        }
     }
     if(!message.content.startsWith(oprix)) return;
 

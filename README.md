@@ -41,7 +41,10 @@ Then fill in these values:
 	  },
 	  "siteName": "DBOS",
 	  "iconUrl": "https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true",
-      "owner": "Seer#6054"
+      "owner": "Seer#6054",
+      "danger": {
+          "debug": false
+      }
 }
 ```
 ### Console explainations:

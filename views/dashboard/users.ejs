@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= SiteName %> - 404</title>  <!-- 
+  <title><%= SiteName %> - Users</title>  <!-- 
     This is a product created by: Wezacon.com
     And used by: <%= SiteName %>. 
    -->
@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="/css/foot.css">
   <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="stylesheet" href="/css/comps.css">
+  <link rel="stylesheet" href="/css/list.css">
   <link rel="shortcut icon" href="<%= icon %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
   <meta name="description" content="<%= SiteName %> - The discord bot for your server!">
@@ -31,8 +32,8 @@
     <div class="title">
       <br>
       <br>
-      <img class="error" src="<%= icon %>">
-      <h1>404</h1>
+      <img class="alive" src="<%= icon %>">
+      <h1>Users</h1>
     </div>
     <div class="container">
       <a class='btn_main dbtn' href="/">
@@ -47,13 +48,29 @@
     <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
     <div class="heading">
-      <br>Error Message 
+      <br>Listed users 
       <!-- <div style="width: 38.5321%;">
         <div class="smile blue"></div>
       </div> -->
     </div>
     <div class="content">
-      <%- Error %>
+        <div class="cards">
+      <% users.forEach(user => { %>
+            <div class="card">
+                <img src="<%= user.profileImage %>" alt="">
+                <br>
+                <br>
+            <h3><%= user.username %></h3>
+            <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
+                <a class='btn_main dbtn' href="user/<%= user.id %>">
+                    View
+                  </a>
+            </div>
+            
+            
+      <% }); %>
+        </div>
+
         <div class="Buttons">
             <a href="/api/git"><i class="fa fa-github-square"></i></a>
         </div>

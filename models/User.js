@@ -6,6 +6,14 @@ const User = Schema({
     admin: {
         type: Boolean,
         default: false
+    },
+    username: {
+        type: String,
+        default: "User#0000"
+    },
+    profileImage: {
+        type: String,
+        default: config.iconUrl
     }
 });
 

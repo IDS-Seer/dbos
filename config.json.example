@@ -5,7 +5,7 @@
 		"secret": "CLIENT SECRET",
 		"id": "CLIENT ID",
 		"commandLogging": true,
-		"messageLogging": true,
+		"messageLogging": true,\
 		"status": {
 			"mode": "dnd",
             "activity": "dbt.help"
@@ -36,5 +36,8 @@
 	  },
 	  "siteName": "DBOS",
 	  "iconUrl": "https://github.com/wezacon/dbos/blob/main/public/img/logo.PNG?raw=true",
-      "owner": "Seer#6054"
+      "owner": "Seer#6054",
+      "danger": {
+          "debug": false
+      }
 }

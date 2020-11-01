@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= SiteName %> - 404</title>  <!-- 
+  <title><%= SiteName %> - User - <%= username %></title>  <!-- 
     This is a product created by: Wezacon.com
     And used by: <%= SiteName %>. 
    -->
@@ -15,15 +15,28 @@
   <link rel="stylesheet" href="/css/comps.css">
   <link rel="shortcut icon" href="<%= icon %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
-  <meta name="description" content="<%= SiteName %> - The discord bot for your server!">
+  <meta name="description" content="<%= SiteName %> - User - <%= username %> - The discord bot for your server!">
   <meta name="twitter:card" value="summary">
-  <meta name="twitter:title" content="<%= SiteName %>">
+  <meta name="twitter:title" content="<%= SiteName %> - User - <%= username %>">
   <meta name="twitter:description" content="The discord bot for your server!">
-  <meta name="twitter:image" content="<%= icon %>">
-  <meta property="og:title" content="<%= SiteName %>">
+  <meta name="twitter:image" content="<%= avatar %>">
+  <meta property="og:title" content="<%= SiteName %> - User - <%= username %>">
   <meta property="og:description" content="The discord bot for your server!">
-  <meta property="og:image" content="<%= icon %>">
+  <meta property="og:image" content="<%= avatar %>">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+      .title img.status {
+    opacity: 1;
+    -webkit-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
+    -moz-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
+    -o-animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
+    animation: header_NotificationCircle_ANIM_err 1.0s infinite ease-in-out;
+    -webkit-transition: all .25s ease-in-out;
+    -moz-transition: all .25s ease-in-out;
+    -o-transition: all .25s ease-in-out;
+    transition: all .25s ease-in-out;
+    }
+  </style>
 </head>
 <body>
  <div class="header">
@@ -31,8 +44,19 @@
     <div class="title">
       <br>
       <br>
-      <img class="error" src="<%= icon %>">
-      <h1>404</h1>
+      <div class="userIcon">
+            <img class="" style="border-radius: 50%;" src="<%= avatar %>">
+            <% if(admin == true){ %>
+                <div class="teamBadge admin"><span>ADMIN</span></div>
+            <% } %>  
+      </div>
+
+      <h1 style="font-size: 30px !important;"><%= username %></h1>
+    </div>
+    <div class="container" style="padding-bottom: 0px !important;">
+        <a class='btn_main dbtn' href="/users">
+            Users
+          </a>
     </div>
     <div class="container">
       <a class='btn_main dbtn' href="/">
@@ -47,13 +71,12 @@
     <waves _ngcontent-serverapp-c78="" _nghost-serverapp-c56=""><svg _ngcontent-serverapp-c56="" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto" class="waves top" style="transform: rotate(180deg);"><defs _ngcontent-serverapp-c56=""><path _ngcontent-serverapp-c56="" id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g _ngcontent-serverapp-c56="" class="parallax"><use _ngcontent-serverapp-c56="" id="wave1t" xlink:href="#gentle-wave" x="48" y="0"></use><use _ngcontent-serverapp-c56="" id="wave2t" xlink:href="#gentle-wave" x="48" y="3"></use><use _ngcontent-serverapp-c56="" id="wave3t" xlink:href="#gentle-wave" x="48" y="5"></use><use _ngcontent-serverapp-c56="" id="wave4t" xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></waves>
     <br>
     <div class="heading">
-      <br>Error Message 
+      <br>User 
       <!-- <div style="width: 38.5321%;">
         <div class="smile blue"></div>
       </div> -->
     </div>
     <div class="content">
-      <%- Error %>
         <div class="Buttons">
             <a href="/api/git"><i class="fa fa-github-square"></i></a>
         </div>

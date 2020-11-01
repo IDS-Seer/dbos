@@ -37,7 +37,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "cls && nodemon server.js",
     "start": "node server.js"
   },
   "repository": {

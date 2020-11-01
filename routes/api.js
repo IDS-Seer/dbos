@@ -60,23 +60,26 @@ router.get("/api/b/version", async function(request, response) {
 });
 
 router.get('/api/all/info', async function(req, res){
- 
-  let domain = Config.siteUrl;
-  let uptimems = process.uptime();
-  let ID = Config.bot.id;
-  let ownerName = Config.owner;
-  let port = Config.port;
-  let authURL = domain + '/inv/bot';
-
-  res.render("../views/api/info.ejs", {
-    SiteName: Config.siteName,
-    icon: Config.iconUrl,
-    invite: authURL,
-    domain: domain,
-    port: port,
-    id: ID,
-    owner: ownerName
-  });
+  try {
+    let domain = Config.siteUrl;
+    let uptimems = process.uptime();
+    let ID = Config.bot.id;
+    let ownerName = Config.owner;
+    let port = Config.port;
+    let authURL = domain + '/inv/bot';
+  
+    res.render("../views/api/info.ejs", {
+      SiteName: Config.siteName,
+      icon: Config.iconUrl,
+      invite: authURL,
+      domain: domain,
+      port: port,
+      id: ID,
+      owner: ownerName
+    });
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+  }
 });
 
 router.get('/inv/bot', async function(req, res){
