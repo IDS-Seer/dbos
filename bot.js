@@ -10,20 +10,21 @@ bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 const GuildModel = require('./models/Guild');
 const UserModel = require('./models/User');
+const levels = require('./models/Levels');
 const { connect } = require('mongoose');
-const Levels = require('discord-xp');
+// const Levels = require('discord-xp');
 const fetch = require("node-fetch");
 var botActivity = config.bot.status.activity;
 var blackListMsgStatus = config.bot.moderation.blackListing.enabled;
 var blackListMsg = config.bot.moderation.blackListing.errorMessage;
 bot.on('ready', async () => {
     console.log('MAIN SHARD ONLINE\n-------------------------')
-    if(config.bot.commandLogging == true){
+    if (config.bot.commandLogging == true) {
         console.log('Command logging is now enabled!\n-------------------------');
     } else {
         console.log('Command logging is not enabled!\n-------------------------')
     }
-    if(config.bot.messageLogging == true){
+    if (config.bot.messageLogging == true) {
         console.log('Message logging is now enabled!');
     } else {
         console.log('Message logging is not enabled!')
@@ -39,38 +40,38 @@ bot.on('ready', async () => {
     bot.user.setStatus(botStatus);
     function StartShards() {
         fs.readdir("./commands/", (err, files) => {
-            if(err) console.log(err);
-        
+            if (err) console.log(err);
+
             let jsfile = files.filter(f => f.split(".").pop() === "js")
-                if(jsfile.length <= 0) {
-                    console.log("ERROR: There is not an existing [commands] folder OR there are no files in the [commands] folder!");
-                }
-        
-                jsfile.forEach((f) => {
-                    let props = require(`./commands/${f}`);
-                    console.log(`SHARD: [${f}] IS ONLINE\n-------------------------`);
-                    bot.commands.set(props.help.name, props);
-                    props.help.aliases.forEach(alias => {
-                        bot.aliases.set(alias, props.help.name);
-                    })
+            if (jsfile.length <= 0) {
+                console.log("ERROR: There is not an existing [commands] folder OR there are no files in the [commands] folder!");
+            }
+
+            jsfile.forEach((f) => {
+                let props = require(`./commands/${f}`);
+                console.log(`SHARD: [${f}] IS ONLINE\n-------------------------`);
+                bot.commands.set(props.help.name, props);
+                props.help.aliases.forEach(alias => {
+                    bot.aliases.set(alias, props.help.name);
                 })
+            })
         })
     }
     setTimeout(StartShards, 1000);
-    setTimeout(()=>{
+    setTimeout(() => {
         bot.user.setActivity(botActivity);
     }, 2000);
 
 
 })
 bot.on("message", async message => {
-    if(message.channel.type === "dm") return;
-    if(message.author.bot) return;
+    if (message.channel.type === "dm") return;
+    if (message.author.bot) return;
     var messageAuthor = message.member.user.tag;
     var AuthorImage = message.author.avatarURL();
-    if(config.bot.messageLogging == true){console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content)}
+    if (config.bot.messageLogging == true) { console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content) }
     const req = await GuildModel.findOne({ id: message.guild.id })
-    if(!req){
+    if (!req) {
         const init = new GuildModel({ id: message.guild.id })
         await init.save();
 
@@ -80,34 +81,34 @@ bot.on("message", async message => {
     }
 
     const userListed = await UserModel.findOne({ id: message.member.id })
-    if(!userListed){
+    if (!userListed) {
         const init = new UserModel({ id: message.member.id, username: messageAuthor, profileImage: AuthorImage })
         await init.save();
     } else {
-        const init = await UserModel.findOneAndUpdate({ id: message.member.id }, { username: messageAuthor, profileImage: AuthorImage }, {new: true});
-        if(config.danger.debug == true){
+        const init = await UserModel.findOneAndUpdate({ id: message.member.id }, { username: messageAuthor, profileImage: AuthorImage }, { new: true });
+        if (config.danger.debug == true) {
             console.log('[DEBUG] ' + init.username + ' - ADMIN: ' + init.admin + '  ' + init.profileImage);
         }
     }
-    if(!message.content.startsWith(oprix)) return;
+    if (!message.content.startsWith(oprix)) return;
 
-    if(req.blacklisted == undefined || req.blacklisted == null){
+    if (req.blacklisted == undefined || req.blacklisted == null) {
         const blackListAdd = new GuildModel({ id: message.guild.id, blacklisted: false })
         await blackListAdd.save();
     } else {
-        if(req.blacklisted == true){
-            if(blackListMsgStatus == true){
+        if (req.blacklisted == true) {
+            if (blackListMsgStatus == true) {
                 var MsgActive = true;
             } else {
                 var MsgActive = false;
             }
-            if(blackListMsg.length <= 0){
+            if (blackListMsg.length <= 0) {
                 var cStatus = 'Not delivered.';
             } else {
                 var cStatus = blackListMsg;
             }
 
-            if(MsgActive == true){
+            if (MsgActive == true) {
                 const blackListEmbed = new Discord.MessageEmbed;
 
                 blackListEmbed.setTitle('Server BlackListed!');
@@ -126,9 +127,9 @@ bot.on("message", async message => {
     let cmd;
     cmd = args.shift().toLocaleLowerCase();
     let commandfile = bot.commands.get(cmd.slice(oprix.length));
-    if(commandfile) commandfile.run(bot, message, args);
-    if(config.bot.commandLogging == true){console.log('CL -> ' + message.content + ' command used in: [' + message.guild.name + '] - By: ' + messageAuthor)}
-    if(bot.commands.has(cmd)) {
+    if (commandfile) commandfile.run(bot, message, args);
+    if (config.bot.commandLogging == true) { console.log('CL -> ' + message.content + ' command used in: [' + message.guild.name + '] - By: ' + messageAuthor) }
+    if (bot.commands.has(cmd)) {
         command = bot.commands.get(cmd);
     } else if (bot.aliases.has(cmd)) {
         command = bot.commands.get(bot.aliases.get(cmd));
@@ -141,92 +142,206 @@ bot.on("message", async message => {
 })
 
 bot.on("message", async message => {
-    if(!message.guild) return;
-    if(message.author.bot) return;
-    const guildDB = await GuildModel.findOne({ id: message.guild.id })
-    if(!guildDB){
-        const init = new GuildModel({ id: message.guild.id })
-        await init.save();
-    }
-    Levels.setURL(config.db.mongodb);
-    if(guildDB.blacklisted == true) return;
-    const randomXp = Math.floor(Math.random() * 9) + 1;
-    const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
+    try {
+        if (message.channel.type === "dm") return;
+        if (message.author.bot) return;
+        var messageAuthor = message.member.user.tag;
+        var AuthorImage = message.author.avatarURL();
+        var UID = message.member.id;
 
-    if(hasLeveledUp){
-        const user = await Levels.fetch(message.author.id, message.guild.id);
-        const applyText = (canvas, text) => {
-            const ctx = canvas.getContext('2d');
-        
-            // Declare a base size of the font
-            let fontSize = 70;
-        
-            do {
-                // Assign the font to the context and decrement it so it can be measured again
-                ctx.font = `${fontSize -= 10}px sans-serif`;
-                // Compare pixel width of the text to the canvas minus the approximate avatar size
-            } while (ctx.measureText(text).width > canvas.width - 300);
-        
-            // Return the result to use in the actual canvas
-            return ctx.font;
-        };
+        const guildDB = await GuildModel.findOne({ id: message.guild.id })
+        if (!guildDB) {
+            const init = new GuildModel({ id: message.guild.id })
+            await init.save();
+        }
+        if (guildDB.blacklisted == true) return;
+        const levelstem = await levels.findOne({ guildID: message.guild.id, userID: UID })
+        if (!levelstem) {
+            const levelstemInit = new levels({ guildID: message.guild.id, userID: UID, userTag: messageAuthor })
+            await levelstemInit.save();
+        }
+
+        var xp = levelstem.xp + 5;
+        console.log(xp)
+        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: xp }, { new: true });
+        var cxp = levelst.xp;
+        if (config.danger.debug == true) {
+            console.log('[DEBUG] CXP: ' + cxp)
+            console.log('[DEBUG] ' + levelst.xp + ' - ' + levelst.guildID + ' - ' + levelst.userID + ' - ' + levelst.level);
+        }
+
         try {
-            const user = await Levels.fetch(message.author.id, message.guild.id);
-            const canvas = Canvas.createCanvas(700, 250);
-            const ctx = canvas.getContext('2d');
-            const UserDB = await UserModel.findOne({ id: message.member.id })
-            if(!UserDB){
-                const init = new UserModel({ id: message.member.id })
-                await init.save();
-            }
-    
-            const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
-            ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-            // Add an exclamation point here and below
-            ctx.font = applyText(canvas, `${message.member.user.tag}`);
-            ctx.fillStyle = '#ffffff';
-            ctx.fillText(`${message.member.user.tag}`, canvas.width / 2.5, canvas.height / 2.5);
-        
+            if (levelstem.xp + 10 >= 200) {
+                var nxp = "0";
+                var level = levelst.level + 1;
+                const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level }, { new: true });
+                if (config.danger.debug == true) {
+                    console.log('[DEBUG] USER LEVELED UP TO ' + levelstring.level + ' XP: ' + levelstring.xp);
+                }
+                const applyText = (canvas, text) => {
+                    const ctx = canvas.getContext('2d');
+
+                    // Declare a base size of the font
+                    let fontSize = 70;
+
+                    do {
+                        // Assign the font to the context and decrement it so it can be measured again
+                        ctx.font = `${fontSize -= 10}px sans-serif`;
+                        // Compare pixel width of the text to the canvas minus the approximate avatar size
+                    } while (ctx.measureText(text).width > canvas.width - 300);
+
+                    // Return the result to use in the actual canvas
+                    return ctx.font;
+                };
+                try {
+                    const user = await levels.findOne({ guildID: message.guild.id, userID: UID });
+                    const canvas = Canvas.createCanvas(700, 250);
+                    const ctx = canvas.getContext('2d');
+                    const UserDB = await UserModel.findOne({ id: message.member.id })
+                    if (!UserDB) {
+                        const init = new UserModel({ id: message.member.id })
+                        await init.save();
+                    }
+
+                    const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
+                    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+                    // Add an exclamation point here and below
+                    ctx.font = applyText(canvas, `${message.member.user.tag}`);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillText(`${message.member.user.tag}`, canvas.width / 2.5, canvas.height / 2.5);
+
                     // Slightly smaller text placed above the member's display name
                     ctx.font = '28px sans-serif';
                     ctx.fillStyle = '#ffffff';
                     ctx.fillText('Level ' + user.level, canvas.width / 2.5, canvas.height / 1.8);
-                
+
                     // Slightly smaller text placed above the member's display name
                     ctx.font = '28px sans-serif';
                     ctx.fillStyle = '#ffffff';
                     ctx.fillText('You leveled up!', canvas.width / 2.5, canvas.height / 1.4);
-            if(UserDB.admin == true) {
-                const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
-                // This uses the canvas dimensions to stretch the image onto the entire canvas
-                ctx.drawImage(admin, 200, 190, 50, 50);
-                ctx.font = '23px sans-serif';
-                ctx.fillStyle = '#ffffff';
-                ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
-            }   
-    
-            ctx.beginPath();
-            ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-            ctx.closePath();
-            ctx.clip();
-        
-            const avatar = await Canvas.loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
-            ctx.drawImage(avatar, 25, 25, 200, 200);
-        
-            const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
-        
-            message.channel.send(attachment);
-          } catch (error) {
-            await message.channel.send(`Something happened: ${error.message}`);
-          }
-        // message.channel.send(`You have leveled up to ${user.level}! Keep it going!`);
+                    if (UserDB.admin == true) {
+                        const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
+                        // This uses the canvas dimensions to stretch the image onto the entire canvas
+                        ctx.drawImage(admin, 200, 190, 50, 50);
+                        ctx.font = '23px sans-serif';
+                        ctx.fillStyle = '#ffffff';
+                        ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
+                    }
+
+                    ctx.beginPath();
+                    ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+                    ctx.closePath();
+                    ctx.clip();
+
+                    const avatar = await Canvas.loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
+                    ctx.drawImage(avatar, 25, 25, 200, 200);
+
+                    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
+
+                    message.channel.send(attachment);
+                } catch (error) {
+                    await message.channel.send(`Something happened: ${error.message}`);
+                }
+            }
+        } catch (error) {
+            console.log('[ERROR] ' + error.message)
+        }
+
+    } catch (error) {
+        message.channel.send("Error: " + error.message + "\nPlease report this to: https://github.com/wezacon/dbos");
     }
 });
+
+//  bot.on("message", async message => {
+//      if(!message.guild) return;
+//      if(message.author.bot) return;
+//      var messageAuthor = message.member.user.tag;
+//      const guildDB = await GuildModel.findOne({ id: message.guild.id })
+//      if(!guildDB){
+//          const init = new GuildModel({ id: message.guild.id })
+//          await init.save();
+//      }
+//  Levels.setURL(config.db.mongodb);
+//  if(guildDB.blacklisted == true) return;
+//  const randomXp = Math.floor(Math.random() * 9) + 1;
+//  const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomXp);
+//  const levelUp = await levelsys.findOneAndUpdate({ userID: message.member.id }, { userTag: messageAuthor }, {new: true});
+//  if(config.danger.debug == true){
+//      console.log('[DEBUG] ' + levelUp.userTag + ' - ID: ' + levelUp.userID + '  ' + levelUp.xp + '  ' + levelUp.level);
+//  }
+
+//      const user = await Levels.fetch(message.author.id, message.guild.id);
+//      const applyText = (canvas, text) => {
+//          const ctx = canvas.getContext('2d');
+
+//          // Declare a base size of the font
+//          let fontSize = 70;
+
+//          do {
+//              // Assign the font to the context and decrement it so it can be measured again
+//              ctx.font = `${fontSize -= 10}px sans-serif`;
+//              // Compare pixel width of the text to the canvas minus the approximate avatar size
+//          } while (ctx.measureText(text).width > canvas.width - 300);
+
+//          // Return the result to use in the actual canvas
+//          return ctx.font;
+//      };
+//      try {
+//          const user = await Levels.fetch(message.author.id, message.guild.id);
+//          const canvas = Canvas.createCanvas(700, 250);
+//          const ctx = canvas.getContext('2d');
+//          const UserDB = await UserModel.findOne({ id: message.member.id })
+//          if(!UserDB){
+//              const init = new UserModel({ id: message.member.id })
+//              await init.save();
+//          }
+
+//          const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
+//          ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+//          // Add an exclamation point here and below
+//          ctx.font = applyText(canvas, `${message.member.user.tag}`);
+//          ctx.fillStyle = '#ffffff';
+//          ctx.fillText(`${message.member.user.tag}`, canvas.width / 2.5, canvas.height / 2.5);
+
+//                  // Slightly smaller text placed above the member's display name
+//                  ctx.font = '28px sans-serif';
+//                  ctx.fillStyle = '#ffffff';
+//                  ctx.fillText('Level ' + user.level, canvas.width / 2.5, canvas.height / 1.8);
+
+//                  // Slightly smaller text placed above the member's display name
+//                  ctx.font = '28px sans-serif';
+//                  ctx.fillStyle = '#ffffff';
+//                  ctx.fillText('You leveled up!', canvas.width / 2.5, canvas.height / 1.4);
+//          if(UserDB.admin == true) {
+//              const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
+//              // This uses the canvas dimensions to stretch the image onto the entire canvas
+//              ctx.drawImage(admin, 200, 190, 50, 50);
+//              ctx.font = '23px sans-serif';
+//              ctx.fillStyle = '#ffffff';
+//              ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
+//          }   
+
+//          ctx.beginPath();
+//          ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+//          ctx.closePath();
+//          ctx.clip();
+
+//          const avatar = await Canvas.loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
+//          ctx.drawImage(avatar, 25, 25, 200, 200);
+
+//          const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
+
+//          message.channel.send(attachment);
+//          } catch (error) {
+//             await message.channel.send(`Something happened: ${error.message}`);
+//         }
+//          // message.channel.send(`You have leveled up to ${user.level}! Keep it going!`);
+// });
 
 bot.on("guildCreate", async guild => {
     var serverid = guild.id;
     const req = await GuildModel.findOne({ id: serverid })
-    if(!req){
+    if (!req) {
         const init = new GuildModel({ id: serverid, prefix: config.bot.prefix })
         await init.save();
     }
@@ -238,16 +353,16 @@ bot.on("guildCreate", async guild => {
     var userAmount = guild.memberCount;
 
     const createEmbed = new Discord.MessageEmbed()
-    .setTitle('**New server added**')
-    .setColor(colors.info)
-    .setDescription(config.siteName + " has been added to a new server!")
-    .setTimestamp()
-    .setThumbnail(serverIcon)
-    .addFields(
-        {name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false}
-    )
-    .setFooter('© Wezacon.com')
-    if(log.enabled == true){
+        .setTitle('**New server added**')
+        .setColor(colors.info)
+        .setDescription(config.siteName + " has been added to a new server!")
+        .setTimestamp()
+        .setThumbnail(serverIcon)
+        .addFields(
+            { name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false }
+        )
+        .setFooter('© Wezacon.com')
+    if (log.enabled == true) {
         bot.channels.cache.get(log.channelLogId).send(createEmbed);
     }
 });
@@ -261,17 +376,25 @@ bot.on("guildDelete", guild => {
     var userAmount = guild.memberCount;
 
     const deleteEmbed = new Discord.MessageEmbed()
-    .setTitle('**Removed from server**')
-    .setColor(colors.danger)
-    .setDescription(config.siteName + " has been removed from a server.")
-    .setTimestamp()
-    .setThumbnail(serverIcon)
-    .addFields(
-        {name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false}
-    )
-    .setFooter('© Wezacon.com')
-    if(log.enabled == true){
+        .setTitle('**Removed from server**')
+        .setColor(colors.danger)
+        .setDescription(config.siteName + " has been removed from a server.")
+        .setTimestamp()
+        .setThumbnail(serverIcon)
+        .addFields(
+            { name: '**Server Info**', value: `**Server ID:** ${serverid}\n**Server Name:** ${serverName}\n**User Count:** ${userAmount}`, inline: false }
+        )
+        .setFooter('© Wezacon.com')
+    if (log.enabled == true) {
         bot.channels.cache.get(log.channelLogId).send(deleteEmbed);
+    }
+});
+bot.on("guildMemberAdd", async member => {
+    var UID = member.id;
+    const levelstem = await levels.findOne({ guildID: member.guild.id, userID: UID })
+    if (!levelstem) {
+        const levelstemInit = new levels({ guildID: member.guild.id, userID: UID, userTag: messageAuthor })
+        await levelstemInit.save();
     }
 });
 bot.login(config.bot.token);

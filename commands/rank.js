@@ -4,10 +4,11 @@ const c = require("../colors.json");
 const Canvas = require("canvas");
 const config = require("../config.json");
 const UserModel = require('../models/User');
+const levels = require("../models/Levels");
 
 module.exports.run = async (bot, message, args) => {
-
-    const user = await Levels.fetch(message.author.id, message.guild.id);
+    var UID = message.member.id;
+    const user = await levels.findOne({ guildID: message.guild.id, userID: UID });
 
     // const embed = new Discord.MessageEmbed()
     //     .setColor(c.gold)
