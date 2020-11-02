@@ -50,17 +50,20 @@
     <div class="heading">
       <br>New users 
       <!-- <div style="width: 38.5321%;">
-        <div class="smile blue"></div>
-      </div> -->
+        <div class="smile" style="background-color: #FFD700;"></div>
+      </div>  -->
     </div>
     <div class="content">
         <div class="cards">
       <% users.forEach(user => { %>
             <div class="card">
-                <img src="<%= user.profileImage %>" alt="">
+                <div>
+                <img src="<%= user.profileImage %>" style="position: relative;" alt="">
+                <% if(user.contributor){ %> <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%; position: absolute; top: 95px; right: 60px;"></div> <% } %>                    
+                </div>
                 <br>
                 <br>
-            <h3><%= user.username %></h3>
+            <h3><%= user.username %>  </h3>
             <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
                 <a class='btn_main dbtn' href="user/<%= user.id %>">
                     View

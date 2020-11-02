@@ -51,17 +51,28 @@
             <% } %>  
       </div>
 
-    <h1 style="font-size: 30px !important;"><%= username %> <% if(developer){ %> <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> <% } %> </h1>
-    </div>
-    <div class="container" style="padding-bottom: 0px !important;">
-        <a class='btn_main dbtn' href="/users">
-            Users
-          </a>
-    </div>
-    <div class="container">
-      <a class='btn_main dbtn' href="/">
-        Home
-      </a>
+    <h1 style="font-size: 30px !important;"><%= username %> 
+         <% if(developer){ %> 
+            <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> 
+         <% } %> 
+         <div class="profilebadges" style="position: relative; justify-content: center!important; align-items: center; text-align: center; display: flex; margin: 30px;">
+            <% if(contributor == true){ %>
+                <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%;"></div>
+            <% } %>  
+         </div>
+        </h1>
+        <div class="container" style="padding-bottom: 0px !important;">
+            <% if(hasServer){ %>
+                <a class='btn_main dbtn' href="<%= serverInvite %> " target="_blank">
+                    Discord Server
+                </a>
+            <% } %>  
+            <% if(hasGit){ %>
+                <a class='btn_main dbtn' href="<%= gitLink %> " target="_blank">
+                    <i class="fa fa-github"></i> Github
+                </a>
+            <% } %>  
+        </div>
     </div>
   </div>
   <br>
@@ -79,6 +90,14 @@
     <div class="content">
         <%- bio %>
         <div class="Buttons">
+            <div class="container" style="padding-bottom: 0px !important;">
+                <a class='btn_main dbtn' href="/">
+                    Home
+                  </a>
+                <a class='btn_main dbtn' href="/users">
+                    Users
+                  </a>
+            </div>
             <a href="/api/git"><i class="fa fa-github-square"></i></a>
         </div>
     </div>

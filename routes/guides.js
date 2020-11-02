@@ -70,6 +70,17 @@ router.get("/user/:id", async (req, res, next) => {
             var userBio = userListed.bio;
           }
 
+          if(userListed.discordServer == "" || userListed.discordServer == undefined || userListed.discordServer == null || userListed.discordServer == "none"){
+            var hasServer = false;
+          } else {
+            var hasServer = true;
+          }
+          if(userListed.github == "" || userListed.github == undefined || userListed.github == null || userListed.github == "none"){
+            var hasGit = false;
+          } else {
+            var hasGit = true;
+          }
+
             let data = {
                 user: req.user,
                 userProfile: user,
@@ -78,7 +89,12 @@ router.get("/user/:id", async (req, res, next) => {
                 avatar: user.displayAvatarURL(),
                 username: user.tag,
                 admin: userListed.admin,
+                contributor: userListed.contributor,
                 bio: userBio,
+                hasServer: hasServer,
+                hasGit: hasGit,
+                gitLink: userListed.github,
+                serverInvite: userListed.discordServer,
                 icon: config.iconUrl,
                 SiteName: config.siteName
             }

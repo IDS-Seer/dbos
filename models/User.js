@@ -7,6 +7,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    contributor: {
+        type: Boolean,
+        default: false
+    },
     username: {
         type: String,
         default: "User#0000"
@@ -18,6 +22,14 @@ const User = Schema({
     bio: {
         type: String,
         default: "This user does not have a bio yet"
+    },
+    github: {
+        type: String,
+        default: "none"
+    },
+    discordServer: {
+        type: String,
+        default: "none"
     }
 });
 
