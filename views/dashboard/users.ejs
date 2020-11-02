@@ -32,7 +32,7 @@
     <div class="title">
       <br>
       <br>
-      <img class="alive" src="<%= icon %>">
+      <img class="icon alive" src="<%= icon %>">
       <h1>Users</h1>
     </div>
     <div class="container">
@@ -63,7 +63,10 @@
                 </div>
                 <br>
                 <br>
-            <h3><%= user.username %>  </h3>
+            <h3>
+                <%= user.username %>          
+   
+            </h3>
             <% if(user.admin == true){ %> <div class="admin">ADMIN</div> <% } %> 
                 <a class='btn_main dbtn' href="user/<%= user.id %>">
                     View

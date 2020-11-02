@@ -12,15 +12,13 @@ const UserModel = require('../models/User')
 router.get("/", async function(request, response) {
   try {
     let ServerNUM = bot.guilds.cache.size;
-    let VERIFIED_BOT = (await bot.fetchFlags()).has("VERIFIED_BOT")
     response.render("../views/index.ejs", {
       SiteName: config.siteName,
       icon: config.iconUrl,
-      verified: VERIFIED_BOT,
       ServerCount: ServerNUM
     });
   } catch (error) {
-    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+    response.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
   }
 
 });
@@ -87,9 +85,10 @@ router.get("/user/:id", async (req, res, next) => {
                 developer: VERIFIED_DEVELOPER ,
                 isProfile: true,
                 avatar: user.displayAvatarURL(),
-                username: user.tag,
+                username: userListed.username,
                 admin: userListed.admin,
                 contributor: userListed.contributor,
+                verified: userListed.verified,
                 bio: userBio,
                 hasServer: hasServer,
                 hasGit: hasGit,
@@ -100,7 +99,8 @@ router.get("/user/:id", async (req, res, next) => {
             }
         res.render("../views/dashboard/user.ejs", data);
       } else {
-        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+        var cerr = "Unknown error.";
+        res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
       }
     } catch (error) {
       res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});

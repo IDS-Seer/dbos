@@ -11,6 +11,10 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    verified: {
+        type: Boolean,
+        default: false
+    },
     username: {
         type: String,
         default: "User#0000"

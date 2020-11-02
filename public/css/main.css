@@ -57,13 +57,13 @@ body::-webkit-scrollbar-thumb {
 .title {
     text-align: center;
 }
-.title img {
+.title .icon {
     height: 100px;
     width: 100px;
     border-radius: 10px;
     background: radial-gradient(circle,var(--bg-2) 0,var(--bg-1) 100%)!important;
 }
-.title img.alive{
+.title .icon.alive{
     background-color: var(--primary);
     -webkit-box-shadow: inset 0px 0px 6px -1px var(--primary);
     -moz-box-shadow: inset 0px 0px 6px -1px var(--primary);
@@ -79,7 +79,7 @@ body::-webkit-scrollbar-thumb {
     -o-transition: all .25s ease-in-out;
     transition: all .25s ease-in-out;
 }
-.title img.error{
+.title .icon.error{
     background-color: var(--error);
     -webkit-box-shadow: inset 0px 0px 6px -1px hsla(0, 80%, 40%, 1);
     -moz-box-shadow: inset 0px 0px 6px -1px hsla(0, 80%, 40%, 1);
@@ -95,7 +95,7 @@ body::-webkit-scrollbar-thumb {
     -o-transition: all .25s ease-in-out;
     transition: all .25s ease-in-out;
 }
-.title img.api{
+.title .icon.api{
     background-color: #1CFF00;
     -webkit-box-shadow: inset 0px 0px 6px -1px #1CFF00;
     -moz-box-shadow: inset 0px 0px 6px -1px #1CFF00;
@@ -300,7 +300,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 
-.title img.wzc{
+.title .icon.wzc{
     background-color: var(--primary);
     -webkit-box-shadow: inset 0px 0px 6px -1px var(--primary);
     -moz-box-shadow: inset 0px 0px 6px -1px var(--primary);
