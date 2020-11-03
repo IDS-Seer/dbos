@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
          let reason = args.slice(1).join(" ");
 
          if(reason === undefined) reason = 'Unspecified';
-        e
+        
          member.ban({reason: reason})
             .catch(err => {
                 if(err) return message.channel.send('Something went wrong!')
