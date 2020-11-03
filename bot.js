@@ -160,8 +160,9 @@ bot.on("message", async message => {
             const levelstemInit = new levels({ guildID: message.guild.id, userID: UID, userTag: messageAuthor })
             await levelstemInit.save();
         }
+        const levelNew = await levels.findOne({ guildID: message.guild.id, userID: UID })
 
-        var xp = levelstem.xp + 5;
+        var xp = levelNew.xp + 5;
         console.log(xp)
         const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: xp }, { new: true });
         var cxp = levelst.xp;
@@ -171,7 +172,7 @@ bot.on("message", async message => {
         }
 
         try {
-            if (levelstem.xp + 10 >= 200) {
+            if (levelNew.xp + 10 >= 200) {
                 var nxp = "0";
                 var level = levelst.level + 1;
                 const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level }, { new: true });
