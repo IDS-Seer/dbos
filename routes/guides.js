@@ -115,7 +115,7 @@ router.get("/:id/leaderboard", async (req, res, next) => {
   const Server = await GuildModel.findOne({ id: req.params.id });
   try {
     if(Server){
-          var users = await levels.find({ guildID: req.params.id }).sort([['levels', 'descending']]).exec();
+          var users = await levels.find({ guildID: req.params.id }).sort({ level: -1, xp: -1 }).exec();
           let data = {
               Udata: users,
               server: req.server,
