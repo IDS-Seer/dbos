@@ -7,7 +7,9 @@ const config = require('../config.json');
 const app = express();
 app.set('view engine', 'ejs');
 const Levels = require('discord-xp');
-const UserModel = require('../models/User')
+const UserModel = require('../models/User');
+const GuildModel = require('../models/Guild');
+const levels = require('../models/Levels');
 
 router.get("/", async function(request, response) {
   try {
@@ -84,7 +86,7 @@ router.get("/user/:id", async (req, res, next) => {
                 userProfile: user,
                 developer: VERIFIED_DEVELOPER ,
                 isProfile: true,
-                avatar: user.displayAvatarURL(),
+                avatar: user.displayAvatarURL({ dynamic: true }),
                 username: userListed.username,
                 admin: userListed.admin,
                 contributor: userListed.contributor,
@@ -105,6 +107,32 @@ router.get("/user/:id", async (req, res, next) => {
     } catch (error) {
       res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
   }
+});
+
+router.get("/:id/leaderboard", async (req, res, next) => {
+  const guildSingle = await bot.guilds.fetch(req.params.id);
+  if (!guildSingle) return res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName})
+  const Server = await GuildModel.findOne({ id: req.params.id });
+  try {
+    if(Server){
+          var users = await levels.find({ guildID: req.params.id }).sort([['levels', 'descending']]).exec();
+          let data = {
+              Udata: users,
+              server: req.server,
+              serverCore: guildSingle,
+              GuildDB: Server,
+              isProfile: true,
+              icon: config.iconUrl,
+              SiteName: config.siteName
+          }
+      res.render("../views/dashboard/leaderboard.ejs", data);
+    } else {
+      var cerr = "Unknown error.";
+      res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: cerr});
+    }
+  } catch (error) {
+    res.render("../views/errors/404.ejs", {icon: config.iconUrl, SiteName: config.siteName, Error: error.message});
+}
 });
 
 // if 404

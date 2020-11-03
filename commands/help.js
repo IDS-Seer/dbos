@@ -22,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
                     helpEmbed.setDescription('The simple yet powerful open source discord bot!')
                     helpEmbed.setThumbnail(config.iconUrl)
                     helpEmbed.addFields(
-                        { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server\n${prefix}rank\n${prefix}leaderboard - Being worked on.`, inline: false },
+                        { name: '**Fun**', value: `${prefix}ping\n${prefix}prefix\n${prefix}server\n${prefix}rank\n${prefix}leaderboard`, inline: false },
                         { name: '**Profile**', value: `${prefix}bio - set your bio for your profile\n${prefix}discordurl - set your server url for your profile\n${prefix}giturl - set your github url for your profile\n\n${prefix}page - view your profile`, inline: false },
                         { name: '**Admin**', value: `${prefix}setprefix\n${prefix}resetprefix\n${prefix}kick\n${prefix}ban\n${prefix}clear`, inline: false },
                     )

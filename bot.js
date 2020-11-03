@@ -68,7 +68,7 @@ bot.on("message", async message => {
     if (message.channel.type === "dm") return;
     if (message.author.bot) return;
     var messageAuthor = message.member.user.tag;
-    var AuthorImage = message.author.avatarURL();
+    var AuthorImage = message.author.avatarURL({ dynamic: true });
     if (config.bot.messageLogging == true) { console.log('ML -> [' + message.guild.name + '] -> ' + messageAuthor + ': ' + message.content) }
     const req = await GuildModel.findOne({ id: message.guild.id })
     if (!req) {
@@ -146,7 +146,7 @@ bot.on("message", async message => {
         if (message.channel.type === "dm") return;
         if (message.author.bot) return;
         var messageAuthor = message.member.user.tag;
-        var AuthorImage = message.author.avatarURL();
+        const AuthorImage = message.author.avatarURL({ dynamic: true });
         var UID = message.member.id;
 
         const guildDB = await GuildModel.findOne({ id: message.guild.id })
@@ -157,18 +157,18 @@ bot.on("message", async message => {
         if (guildDB.blacklisted == true) return;
         const levelstem = await levels.findOne({ guildID: message.guild.id, userID: UID })
         if (!levelstem) {
-            const levelstemInit = new levels({ guildID: message.guild.id, userID: UID, userTag: messageAuthor })
+            const levelstemInit = new levels({ guildID: message.guild.id, userID: UID, userTag: messageAuthor, userImage: AuthorImage })
             await levelstemInit.save();
         }
         const levelNew = await levels.findOne({ guildID: message.guild.id, userID: UID })
 
         var xp = levelNew.xp + 5;
         console.log(xp)
-        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: xp }, { new: true });
+        const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp }, { new: true });
         var cxp = levelst.xp;
         if (config.danger.debug == true) {
             console.log('[DEBUG] CXP: ' + cxp)
-            console.log('[DEBUG] ' + levelst.xp + ' - ' + levelst.guildID + ' - ' + levelst.userID + ' - ' + levelst.level);
+            console.log('[DEBUG] ' + levelst.xp + ' - ' + levelst.guildID + ' - ' + levelst.userID + ' - ' + levelst.level + '  -  ' + levelst.userImage);
         }
 
         try {

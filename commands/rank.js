@@ -7,7 +7,11 @@ const UserModel = require('../models/User');
 const levels = require("../models/Levels");
 
 module.exports.run = async (bot, message, args) => {
-    var UID = message.member.id;
+    try {
+        if(config.danger.debug == true){
+            console.log("[DEBUG] RANK.JS HAS ALMOST BEEN STARTED!")
+        }
+        var UID = message.member.id;
     const user = await levels.findOne({ guildID: message.guild.id, userID: UID });
 
     // const embed = new Discord.MessageEmbed()
@@ -31,7 +35,10 @@ module.exports.run = async (bot, message, args) => {
         return ctx.font;
     };
     try {
-        const user = await Levels.fetch(message.author.id, message.guild.id);
+        if(config.danger.debug == true){
+            console.log("[DEBUG] RANK.JS HAS REACHED THE MIDDLE!")
+        }
+        const user = await levels.findOne({userID: message.author.id, guildID: message.guild.id});
         const canvas = Canvas.createCanvas(700, 250);
         const ctx = canvas.getContext('2d');
         const UserDB = await UserModel.findOne({ id: message.member.id })
@@ -56,6 +63,9 @@ module.exports.run = async (bot, message, args) => {
                 ctx.font = '28px sans-serif';
                 ctx.fillStyle = '#ffffff';
                 ctx.fillText('XP: ' + user.xp, canvas.width / 2.5, canvas.height / 1.4);
+                if(config.danger.debug == true){
+                    console.log("[DEBUG] RANK.JS IS NEAR THE END!")
+                }
         if(UserDB.admin == true) {
             const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
             // This uses the canvas dimensions to stretch the image onto the entire canvas
@@ -74,11 +84,29 @@ module.exports.run = async (bot, message, args) => {
         ctx.drawImage(avatar, 25, 25, 200, 200);
     
         const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
-    
-        message.channel.send(attachment);
+        if(config.danger.debug == true){
+            console.log("[DEBUG] RANK.JS HAS ALMOST BEEN COMPLETED!")
+        }
+        message.channel.send(attachment).catch(error => {
+            console.log(error);
+        });
+
+        // const embed = new Discord.MessageEmbed()
+        //         .setColor(c.info)
+        //         .setTitle("**User Info**")
+        //         .setAuthor(message.member.user.tag, message.member.user.displayAvatarURL({ format: 'jpg' }))
+        //         .addFields(
+        //             { name: '**Level**', value: `${user.level}`, inline: false },
+        //             { name: '**XP**', value: `${user.xp}`, inline: false }
+        //         )
+        // return message.channel.send(embed)
       } catch (error) {
         await message.channel.send(`Something happened: ${error.message}`);
       }
+    } catch (error) {
+        await message.channel.send(`Something happened: ${error.message}`);
+    }
+    
 }
 
 module.exports.help = {

@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const Levels = require('discord-xp');
 const levels = require("../models/Levels");
 const c = require("../colors.json");
+const config = require("../config.json");
 module.exports.run = async (bot, message, args) => {
     try {
         var guildId = message.guild.id;
@@ -21,7 +22,7 @@ module.exports.run = async (bot, message, args) => {
             const embed = new Discord.MessageEmbed()
                 .setColor(c.gold)
                 .setTitle("**LeaderBoard**")
-                .setDescription(xp)
+                .setDescription(config.siteUrl + "/" + message.guild.id + '/leaderboard')
             message.channel.send(embed)
             } catch (error) {
                 console.log("[ERROR] " + error.message)
@@ -34,6 +35,6 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-    name: "",
-    aliases: [""]
+    name: "leaderboard",
+    aliases: ["lb"]
 }
