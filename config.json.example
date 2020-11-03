@@ -5,7 +5,7 @@
 		"secret": "CLIENT SECRET",
 		"id": "CLIENT ID",
 		"commandLogging": true,
-		"messageLogging": true,\
+		"messageLogging": true,
 		"status": {
 			"mode": "dnd",
             "activity": "dbt.help"
