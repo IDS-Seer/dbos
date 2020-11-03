@@ -120,7 +120,12 @@ bot.on("message", async message => {
                 return message.channel.send(blackListEmbed);
             }
 
-            return console.log('ERR -> BLACKLISTED SERVER USED A COMMAND, COMMAND STATUS: ' + cStatus);
+            if(config.danger.debug == true){
+             return console.log('[DEBUG] BLACKLISTED SERVER USED A COMMAND, COMMAND STATUS: ' + cStatus);   
+            } else {
+             return;
+            }
+            
         }
     }
     let args = message.content.slice(oprix.length).trim().split(/ +/g);
@@ -241,7 +246,12 @@ bot.on("message", async message => {
 
                     message.channel.send(attachment);
                 } catch (error) {
-                    await message.channel.send(`Something happened: ${error.message}`);
+                    const c = require("../colors.json");
+                    const Err_1 = new Discord.MessageEmbed()
+                        .setColor(c.error)
+                        .setTitle("**Error**")
+                        .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+                    return message.channel.send(Err_1);
                 }
             }
         } catch (error) {
@@ -249,7 +259,12 @@ bot.on("message", async message => {
         }
 
     } catch (error) {
-        message.channel.send("Error: " + error.message + "\nPlease report this to: https://github.com/wezacon/dbos");
+        const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
     }
 });
 

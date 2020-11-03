@@ -101,10 +101,20 @@ module.exports.run = async (bot, message, args) => {
         //         )
         // return message.channel.send(embed)
       } catch (error) {
-        await message.channel.send(`Something happened: ${error.message}`);
+                const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
       }
     } catch (error) {
-        await message.channel.send(`Something happened: ${error.message}`);
+                const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
     }
     
 }

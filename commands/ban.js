@@ -17,7 +17,7 @@ module.exports.run = async (bot, message, args) => {
          let reason = args.slice(1).join(" ");
 
          if(reason === undefined) reason = 'Unspecified';
-
+        e
          member.ban({reason: reason})
             .catch(err => {
                 if(err) return message.channel.send('Something went wrong!')
@@ -26,8 +26,13 @@ module.exports.run = async (bot, message, args) => {
         return message.channel.send(`${member} was successfully banned!`);
 
     } catch (error) {
-        message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
-    }
+        const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
+ }
  
 }
 

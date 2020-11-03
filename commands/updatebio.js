@@ -25,7 +25,12 @@ module.exports.run = async (bot, message, args) => {
         } 
         return message.reply(`profile updated!\n` + config.siteUrl + '/user/' + message.member.id);
     } catch (error) {
-        message.channel.send("A wild error appeared!: " + error.message + "\nYou are not supposed to see this, please report this to: https://github.com/wezacon/dbos/issues");
+        const c = require("../colors.json");
+        const Err_1 = new Discord.MessageEmbed()
+            .setColor(c.error)
+            .setTitle("**Error**")
+            .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+        return message.channel.send(Err_1);
     }
 }
 
