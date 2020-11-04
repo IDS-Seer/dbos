@@ -47,6 +47,18 @@ module.exports.run = async (bot, message, args) => {
             await init.save();
         }
 
+        if(user.level == 0){
+            const NXP = 1;
+        } else if(user.level == 1){
+            const NXP = 2;
+        } else {
+            const NXP = user.level;
+        }
+        
+        const clevel = 50;
+        
+        const nxp = user.nxp;
+
     	const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
 	    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         // Add an exclamation point here and below
@@ -62,7 +74,7 @@ module.exports.run = async (bot, message, args) => {
                 // Slightly smaller text placed above the member's display name
                 ctx.font = '28px sans-serif';
                 ctx.fillStyle = '#ffffff';
-                ctx.fillText('XP: ' + user.xp, canvas.width / 2.5, canvas.height / 1.4);
+                ctx.fillText('XP: ' + user.xp + ' / ' + nxp, canvas.width / 2.5, canvas.height / 1.4);
                 if(config.danger.debug == true){
                     console.log("[DEBUG] RANK.JS IS NEAR THE END!")
                 }

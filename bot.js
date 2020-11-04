@@ -167,6 +167,22 @@ bot.on("message", async message => {
         }
         const levelNew = await levels.findOne({ guildID: message.guild.id, userID: UID })
 
+        if(levelNew.level == 0){
+            var NXP = 1;
+        } else if(levelNew.level == 1){
+            var NXP = 2;
+        } else {
+            var NXP = levelNew.level;
+        }
+
+        const clevel = 50;
+
+        var nxp = levelNew.nxp;
+
+        if(config.danger.debug == true){
+            console.log("[DEBUG] NXP: " + nxp);
+        }
+
         var xp = levelNew.xp + 5;
         console.log(xp)
         const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp }, { new: true });
@@ -177,10 +193,11 @@ bot.on("message", async message => {
         }
 
         try {
-            if (levelNew.xp + 10 >= 200) {
+            if (levelNew.xp + 10 >= levelst.nxp) {
                 var nxp = "0";
                 var level = levelst.level + 1;
-                const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level }, { new: true });
+                var FXP = levelst.nxp + clevel;
+                const levelstring = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, xp: nxp, level: level, nxp: FXP }, { new: true });
                 if (config.danger.debug == true) {
                     console.log('[DEBUG] USER LEVELED UP TO ' + levelstring.level + ' XP: ' + levelstring.xp);
                 }
@@ -246,7 +263,7 @@ bot.on("message", async message => {
 
                     message.channel.send(attachment);
                 } catch (error) {
-                    const c = require("../colors.json");
+                    const c = require("./colors.json");
                     const Err_1 = new Discord.MessageEmbed()
                         .setColor(c.error)
                         .setTitle("**Error**")
@@ -259,7 +276,7 @@ bot.on("message", async message => {
         }
 
     } catch (error) {
-        const c = require("../colors.json");
+        const c = require("./colors.json");
         const Err_1 = new Discord.MessageEmbed()
             .setColor(c.error)
             .setTitle("**Error**")

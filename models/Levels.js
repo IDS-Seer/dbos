@@ -7,6 +7,7 @@ const levels = Schema({
     userTag: { type: String },
     userImage: { type: String },
     xp: { type: Number, default: 0 },
+    nxp: { type: Number, default: 200 },
     level: { type: Number, default: 0 },
     lastUpdated: { type: Date, default: new Date() }
 });

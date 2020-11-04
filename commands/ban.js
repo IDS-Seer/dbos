@@ -20,7 +20,12 @@ module.exports.run = async (bot, message, args) => {
         
          member.ban({reason: reason})
             .catch(err => {
-                if(err) return message.channel.send('Something went wrong!')
+                const c = require("../colors.json");
+                const Err_1 = new Discord.MessageEmbed()
+                    .setColor(c.error)
+                    .setTitle("**Error**")
+                    .setDescription("I have encountered a unexpected error: `"+ error.message +"`\nplease report this to: https://dbos.flarum.cloud or https://github.com/wezacon/dbos")
+                return message.channel.send(Err_1);
             })
 
         return message.channel.send(`${member} was successfully banned!`);

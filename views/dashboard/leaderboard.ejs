@@ -68,17 +68,31 @@
     </div>
     <div class="content" style="justify-content: center;">
         <div class="cards">
-            <% Udata.forEach(user => { %>
+            <% Udata.forEach(user => { 
+                
+            if(user.level == 0){
+                var NXP = 1;
+            } else if(user.level == 1){
+                var NXP = 2;
+            } else {
+                var NXP = user.level;
+            }
+
+            const clevel = 50;
+
+            const nxp = user.nxp;
+
+                %>
                   <div class="card">
                       <div>
-                      <img src="<%= user.userImage %>" style="position: relative;" alt="">                    
+                      <img src="<%= user.userImage %>" style="position: relative;" alt="">                   
                       </div>
                       <br>
                       <br>
                   <h3>
                       <%= user.userTag %> 
                   </h3>
-                  <h4>Level: <%= user.level %> &nbsp;  XP: <%= user.xp %></h4>
+                  <h4 class="rankLev">Level: <%= user.level %> &nbsp;  XP: <%= user.xp %> / <%= nxp %></h4>
                       <a class='btn_main dbtn' href="../user/<%= user.userID %>">
                           View Profile
                         </a>
