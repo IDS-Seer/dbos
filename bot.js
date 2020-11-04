@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const config = require('./config.json');
 const colors = require('./colors.json');
 const system = require('./system.json');
+const canvacord = require("canvacord");
 const Canvas = require("canvas");
 const fs = require('fs');
 const bot = new Discord.Client();
@@ -225,43 +226,57 @@ bot.on("message", async message => {
                         const init = new UserModel({ id: message.member.id })
                         await init.save();
                     }
+                    const rank = new canvacord.Rank()
+                        .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
+                        .setCurrentXP(user.xp)
+                        .setRequiredXP(user.nxp)
+                        .setProgressBar("#FFFFFF", "COLOR")
+                        .setUsername(message.author.username)
+                        .setDiscriminator(message.author.discriminator)
+                        .setRank(user.level, 'LEVEL UP', false)
+                        .setLevel(user.level, 'LEVEL', true)
+                        
+                    rank.build()
+                            .then(data => {
+                                const attmnt = new Discord.MessageAttachment(data, 'DBOS_rank_card.png');
+                                return message.channel.send(attmnt);
+                            });
+                    // const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
+                    // ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+                    // // Add an exclamation point here and below
+                    // ctx.font = applyText(canvas, `${message.member.user.tag}`);
+                    // ctx.fillStyle = '#ffffff';
+                    // ctx.fillText(`${message.member.user.tag}`, canvas.width / 2.5, canvas.height / 2.5);
 
-                    const background = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/3377470.jpg?raw=true');
-                    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-                    // Add an exclamation point here and below
-                    ctx.font = applyText(canvas, `${message.member.user.tag}`);
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillText(`${message.member.user.tag}`, canvas.width / 2.5, canvas.height / 2.5);
+                    // // Slightly smaller text placed above the member's display name
+                    // ctx.font = '28px sans-serif';
+                    // ctx.fillStyle = '#ffffff';
+                    // ctx.fillText('Level ' + user.level, canvas.width / 2.5, canvas.height / 1.8);
 
-                    // Slightly smaller text placed above the member's display name
-                    ctx.font = '28px sans-serif';
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillText('Level ' + user.level, canvas.width / 2.5, canvas.height / 1.8);
+                    // // Slightly smaller text placed above the member's display name
+                    // ctx.font = '28px sans-serif';
+                    // ctx.fillStyle = '#ffffff';
+                    // ctx.fillText('You leveled up!', canvas.width / 2.5, canvas.height / 1.4);
+                    // if (UserDB.admin == true) {
+                    //     const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
+                    //     // This uses the canvas dimensions to stretch the image onto the entire canvas
+                    //     ctx.drawImage(admin, 200, 190, 50, 50);
+                    //     ctx.font = '23px sans-serif';
+                    //     ctx.fillStyle = '#ffffff';
+                    //     ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
+                    // }
 
-                    // Slightly smaller text placed above the member's display name
-                    ctx.font = '28px sans-serif';
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillText('You leveled up!', canvas.width / 2.5, canvas.height / 1.4);
-                    if (UserDB.admin == true) {
-                        const admin = await Canvas.loadImage('https://github.com/wezacon/dbos/blob/main/public/img/moderator.png?raw=true');
-                        // This uses the canvas dimensions to stretch the image onto the entire canvas
-                        ctx.drawImage(admin, 200, 190, 50, 50);
-                        ctx.font = '23px sans-serif';
-                        ctx.fillStyle = '#ffffff';
-                        ctx.fillText('Bot Admin', canvas.width / 2.5, canvas.height / 1.2);
-                    }
+                    // ctx.beginPath();
+                    // ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+                    // ctx.closePath();
+                    // ctx.clip();
 
-                    ctx.beginPath();
-                    ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-                    ctx.closePath();
-                    ctx.clip();
+                    // const avatar = await Canvas.loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
+                    // ctx.drawImage(avatar, 25, 25, 200, 200);
 
-                    const avatar = await Canvas.loadImage(message.member.user.displayAvatarURL({ format: 'jpg' }));
-                    ctx.drawImage(avatar, 25, 25, 200, 200);
+                    // const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
 
-                    const attachment = new Discord.MessageAttachment(canvas.toBuffer(), 'rank-dbos.png');
-
-                    message.channel.send(attachment);
+                    // message.channel.send(attachment);
                 } catch (error) {
                     const c = require("./colors.json");
                     const Err_1 = new Discord.MessageEmbed()
