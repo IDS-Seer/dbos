@@ -195,7 +195,7 @@ bot.on("message", async message => {
         }
 
         try {
-            if (levelNew.xp + 5 >= levelst.nxp) {
+            if (gxp >= levelst.nxp) {
                 var nxp = "0";
                 var level = levelst.level + 1;
                 var FXP = levelst.nxp + clevel;
