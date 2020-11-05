@@ -184,7 +184,8 @@ bot.on("message", async message => {
             console.log("[DEBUG] NXP: " + nxp);
         }
 
-        var xp = levelNew.xp + 5;
+        var gxp = levelNew.xp + 5 + levelNew.level;
+        var xp = gxp;
         console.log(xp)
         const levelst = await levels.findOneAndUpdate({ guildID: message.guild.id, userID: UID }, { userTag: messageAuthor, userImage: AuthorImage, xp: xp }, { new: true });
         var cxp = levelst.xp;
@@ -194,7 +195,7 @@ bot.on("message", async message => {
         }
 
         try {
-            if (levelNew.xp + 10 >= levelst.nxp) {
+            if (levelNew.xp + 5 >= levelst.nxp) {
                 var nxp = "0";
                 var level = levelst.level + 1;
                 var FXP = levelst.nxp + clevel;

@@ -84,6 +84,7 @@ router.get("/user/:id", async (req, res, next) => {
             let data = {
                 user: req.user,
                 userProfile: user,
+                dbuser: userListed,
                 developer: VERIFIED_DEVELOPER ,
                 isProfile: true,
                 avatar: user.displayAvatarURL({ dynamic: true }),

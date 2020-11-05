@@ -55,7 +55,9 @@
     </div>
     <div class="content">
         <div class="cards">
-      <% users.forEach(user => { %>
+      <% users.forEach(user => { 
+          if(user.removed == false){ 
+        %>
             <div class="card">
                 <div>
                 <img src="<%= user.profileImage %>" style="position: relative;" alt="">
@@ -76,7 +78,10 @@
             </div>
             
             
-      <% }); %>
+      <% 
+          }
+        }); 
+          %>
         </div>
 
         <div class="Buttons">

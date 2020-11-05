@@ -15,6 +15,14 @@ const User = Schema({
         type: Boolean,
         default: false
     },
+    removed: {
+        type: Boolean,
+        default: false
+    },
+    removeReason: {
+        type: String,
+        default: "This user violated our TOS"
+    },
     username: {
         type: String,
         default: "User#0000"

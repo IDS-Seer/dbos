@@ -62,11 +62,11 @@ module.exports.run = async (bot, message, args) => {
         const rank = new canvacord.Rank()
             .setAvatar(message.author.displayAvatarURL({ dynamic: false, format: 'png' }))
             .setCurrentXP(user.xp)
-            .setRequiredXP(nxp)
+            .setRequiredXP(user.nxp)
             .setProgressBar("#FFFFFF", "COLOR")
             .setUsername(message.author.username)
             .setDiscriminator(message.author.discriminator)
-            .setRank('1', 'no', false)
+            .setRank(user.level, 'LEVEL UP', false)
             .setLevel(user.level, 'LEVEL', true)
             
         rank.build()

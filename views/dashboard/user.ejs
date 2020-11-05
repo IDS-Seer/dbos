@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= SiteName %> - User - <%= username %></title>  <!-- 
+  <title><%= SiteName %> - User -       <% if(dbuser.removed == false){ %> 
+    <%= username %>
+  <% } else { %>
+   Removed
+  <% } %></title>  <!-- 
     This is a product created by: Wezacon.com
     And used by: <%= SiteName %>. 
    -->
@@ -13,6 +17,7 @@
   <link rel="stylesheet" href="/css/foot.css">
   <link rel="stylesheet" href="/css/pageContent.css">
   <link rel="stylesheet" href="/css/comps.css">
+  <link rel="stylesheet" href="/css/errs.css">
   <link rel="shortcut icon" href="<%= icon %>" type="image/x-icon">
   <meta name="theme-color" content="var(--bg-1)">
   <meta name="description" content="<%= SiteName %> - User - <%= username %> - <%= bio %>">
@@ -39,43 +44,80 @@
   </style>
 </head>
 <body>
+  <% if(dbuser.removed == true){ %>
+    <div class="topBar">
+        <div class="content">
+          <i class="fa fa-exclamation-triangle"></i>
+          &nbsp;   This user has been removed
+          <div class="reason">
+            <div class="sectionHeader" style="padding-right: 200px;padding-left: 200px;">
+              <div>
+                Reason&nbsp;&nbsp;
+              </div>
+              <div class="line"></div>
+            </div>
+            <strong><%- dbuser.removeReason %></strong>
+          </div>
+      </div>
+    </div>
+  <% } %> 
  <div class="header">
   <div class="inner-header">
     <div class="title">
       <br>
       <br>
       <div class="userIcon">
-            <img class="icon" style="border-radius: 50%;" src="<%= avatar %>">
+      <img class="icon" style="border-radius: 50%;" src="<% if(dbuser.removed == false){ %><%= avatar %><% } else {%> <%= icon %> <% } %>">
+      <% if(dbuser.removed == false){ %>    
             <% if(admin == true){ %>
                 <div class="teamBadge admin"><span>ADMIN</span></div>
-            <% } %>  
+            <% } }%>  
       </div>
 
     <h1 style="font-size: 30px !important;">
+      <% if(dbuser.removed == false){ %> 
         <%= username %>
-        <% if(verified){ %>
-            <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
-        <% } %> 
-         <% if(developer){ %> 
-            <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> 
-         <% } %> 
+      <% } else { %>
+       <strong style="font-weight: 900;">Removed</strong> 
+      <% } %>
+     <% if(dbuser.removed == false){
+        if(verified){ %>
+              <img src="https://github.com/wezacon/dbos/blob/main/public/svg/verified.svg?raw=true" style="display: inline-block;width: 24px;" title="Verified">
+          <% } 
+      }
+        %> 
+         <% 
+         if(dbuser.removed == false){
+          if(developer){ %> 
+              <img class="developerBadge" style="background: none !important;" src="https://emoji.gg/assets/emoji/4228_discord_bot_dev.png"> 
+          <% }
+          } %> 
          <div class="profilebadges" style="position: relative; justify-content: center!important; align-items: center; text-align: center; display: flex; margin: 30px;">
-            <% if(contributor == true){ %>
-                <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%;"></div>
-            <% } %>  
+            <%
+            if(dbuser.removed == false){
+              if(contributor == true){ %>
+                  <div title="contributor" class="smile" style="background-color: #FFD700; width: 38.5321%;"></div>
+              <% } 
+            }%>  
          </div>
         </h1>
         <div class="container" style="padding-bottom: 0px !important;">
-            <% if(hasServer){ %>
+            <% 
+            if(dbuser.removed == false){
+            if(hasServer){ %>
                 <a class='btn_main dbtn' href="<%= serverInvite %> " target="_blank">
                     Discord Server
                 </a>
-            <% } %>  
-            <% if(hasGit){ %>
+            <% } } %>  
+            <% 
+            if(dbuser.removed == false){
+            if(hasGit){ %>
                 <a class='btn_main dbtn' href="<%= gitLink %> " target="_blank">
                     <i class="fa fa-github"></i> Github
                 </a>
-            <% } %>  
+            <% } 
+              }
+            %>  
         </div>
     </div>
   </div>
@@ -92,7 +134,11 @@
       </div> -->
     </div>
     <div class="content">
+      <% if(dbuser.removed == false){ %>
         <%- bio %>
+      <% } else {%>
+        The bio of this user has been <strong>Removed</strong>
+      <% } %>
         <div class="Buttons">
             <div class="container" style="padding-bottom: 0px !important;">
                 <a class='btn_main dbtn' href="/">

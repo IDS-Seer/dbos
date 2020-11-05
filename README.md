@@ -54,8 +54,11 @@ CL -> Command Log - Enabled with `"commandLogging": true`
 **DISCLAIMER:** The following will **not** be displayed on the help command.
 
 (prefix) = custom bot prefix
-[ServerID] = parameter
+[ITEM] = parameter
 ```
 - (prefix)whitelist [ServerID]
 - (prefix)blacklistlist [ServerID]
+
+- (prefix)listremove [UserID] [Reason]
+- (prefix)listunremove [UserID]
 ``` 

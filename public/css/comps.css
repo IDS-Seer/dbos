@@ -70,3 +70,37 @@
     width: 33px !important;
     background: none !important;
 }
+
+.sectionHeader {
+    display: flex;
+    padding-right: 40px;
+    padding-left: 40px;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-top: 5px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-transform: uppercase;
+    user-select: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    color: var(--font);
+}
+/* .sectionHeader div {
+    padding: .25em 0;
+} */
+.sectionHeader .line {
+    display: inline-block;
+    flex-grow: 100;
+    margin: 0 0 0 2px;
+    display: block;
+    height: 1px;
+    margin: 3px 0;
+    background-color: var(--font);  
+}
+.error-font {
+    color: var(--error) !important;
+}
+.error-background {
+    background-color: var(--error) !important;  
+}
