@@ -10,6 +10,10 @@ const Guild = Schema({
     blacklisted: {
         type: Boolean,
         default: false
+    }, 
+    premium: {
+        type: Boolean,
+        default: false
     }
 });
 

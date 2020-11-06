@@ -13,7 +13,6 @@ module.exports.run = async (bot, message, args) => {
             }
             const RSX = RXR.replace(/<[^>]+>/g, '');
             const Reason = nl2br(RSX);
-            if(Target === message.member.id) return message.reply('I can\'t ListBan you.');
 
             if(!Target) return message.reply('Please enter in a valid user id');
 
